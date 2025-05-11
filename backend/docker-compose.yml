@@ -5,7 +5,7 @@ services:
     build:
       context: ./services/nginx
       dockerfile: Dockerfile
-    # restart: unless-stopped
+    restart: unless-stopped
     volumes:
       - '${PWD}/services/nginx/conf/ssl.conf:/etc/nginx/conf/ssl.conf'
       - '${PWD}/services/nginx/conf/nginx-default.conf.template:/etc/nginx/templates/default.conf.template'
@@ -26,7 +26,7 @@ services:
       context: ./services/redis
       dockerfile: Dockerfile
     command: --save 60 1 --loglevel warning
-    # restart: unless-stopped
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
       start_period: 10s
@@ -43,7 +43,7 @@ services:
     build:
       context: ./services/postgres
       dockerfile: Dockerfile
-    # restart: unless-stopped
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       start_period: 10s
@@ -56,7 +56,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    env_file: ./.env
+    env_file:
+      - ./.env
     networks:
       - hapi_fhir_network
 
@@ -67,7 +68,7 @@ services:
     build:
       context: ./services/keycloak
       dockerfile: Dockerfile
-    # restart: unless-stopped
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "/opt/keycloak/health-check.sh"]
       start_period: 10s
@@ -89,6 +90,11 @@ services:
     command:
       [
         'start',
+        '-Dkeycloak.migration.action=import',
+        '-Dkeycloak.migration.provider=singleFile',
+        '-Dkeycloak.migration.realmName=hapi-fhir-dev',
+        '-Dkeycloak.migration.strategy=OVERWRITE_EXISTING',
+        '-Dkeycloak.migration.file=/import/development-realm.json',
         '--log-level=INFO,io.vertx.ext.web.impl.RouterImpl:TRACE',
       ]
 
@@ -110,11 +116,8 @@ services:
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
 
       KC_HEALTH_ENABLED: true
-
-    env_file: ./.env
-    ports:
-      - 8443:8443
-      - 9000:9000
+    env_file:
+      - ./.env
 
     # Make sure the certificate and the key (the *.pem files) have the correct permissions -> e.g., sudo chmod 655 *.pem
     volumes:
@@ -123,6 +126,9 @@ services:
       - '${PWD}/certs/keycloak-key.pem:/etc/keycloak/certs/key.pem'
       - '${PWD}/certs:/opt/keycloak/conf/truststores'
       - '${PWD}:/import'
+    ports:
+      - 8443:8443
+      - 9000:9000
     depends_on:
       postgres:
         condition: service_healthy
@@ -134,14 +140,15 @@ services:
     build:
       context: ./services/hapi-fhir
       dockerfile: Dockerfile
-    # restart: unless-stopped
+    restart: unless-stopped
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-admin}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-secret}
       SPRING_DATASOURCE_DRIVERCLASSNAME: 'org.postgresql.Driver'
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: 'ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect'
-    env_file: ./.env
+    env_file:
+      - ./.env
     expose:
       - 80:80
     configs:
@@ -150,7 +157,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      # keycloak:
       keycloak.au.localhost:
         condition: service_healthy
     networks:
@@ -161,8 +167,10 @@ services:
     build:
       context: ./services/oauth2-proxy
       dockerfile: Dockerfile
-    # restart: unless-stopped
+    restart: unless-stopped
+
     # '--skip-auth-preflight=true',
+
     command:
       [
         '--standard-logging=true',
@@ -229,13 +237,13 @@ services:
       OAUTH2_PROXY_SSL_UPSTREAM_INSECURE_SKIP_VERIFY: true
       OAUTH2_PROXY_UPSTREAMS: http://hapi-fhir:8080/
 
-    env_file: ./.env
+    env_file:
+      - ./.env
     ports:
       - 4180:4180
     depends_on:
       redis:
         condition: service_healthy
-      # keycloak:
       keycloak.au.localhost:
         condition: service_healthy
     networks:

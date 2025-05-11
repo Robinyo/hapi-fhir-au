@@ -137,12 +137,11 @@ To remove the services:
 docker compose down
 ```
 
-To remove the data volumes and network:
+To remove the data volumes:
 
 ```
-docker volume rm backend_postgres_data
+docker volume rm backend_postgres_data &&
 docker volume rm backend_cache
-docker network rm backend_hapi_network
 ```
 
 ### Call the FHIR API
@@ -242,8 +241,8 @@ docker compose up
 Keycloak will import the `hapi-fhir-dev` realm when it starts up:
 
 ```
-  keycloak:
-    container_name: keycloak
+  keycloak.au.localhost:
+    container_name: keycloak.au.localhost
     
     ...
 

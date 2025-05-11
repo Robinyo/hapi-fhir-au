@@ -1,0 +1,14 @@
+routes:
+  - uri: /*
+    upstream:
+      nodes:
+        "httpbin:80": 1
+    plugins:
+      openid-connect:
+        client_id: ${{OIDC_CLIENTID}}
+        client_secret: ${{OIDC_SECRET}}
+        discovery: https://${{OIDC_ISSUER}}/.well-known/openid-configuration
+        redirect_uri: http://localhost:9080/callback
+        scope: openid
+        session:
+          secret: ${{SESSION_SECRET}}
