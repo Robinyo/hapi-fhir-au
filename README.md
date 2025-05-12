@@ -60,7 +60,7 @@ You should see something like:
   <img src="./docs/quick-start-guide/keycloak-sign-in.png" alt="Sign in with your Keycloak Account"/>
 </p>
 
-Enter your username (hey@rob-ferguson.me) and password (secret), then click the 'Sign In' button to sign in using the OpenID Connect (OIDC) **Authorization Code Flow**.
+Enter your username (hey@rob-ferguson.me) and password (secret), then click the 'Sign In' button to sign in using the OpenID Connect (OIDC) **Authorization Code flow**.
 
 <p align="center">
   <img src="./docs/quick-start-guide/hapi-fhir-welcome-page.png" alt="HAPI FHIR Welcome page"/>
@@ -140,7 +140,7 @@ docker volume rm backend_cache
 
 ##### OAuth 2.0 Client Credentials Grant
 
-You must allow the 'Service account roles' capability config setting in order to enable support for the OAuth 2.0 **Client Credentials Grant**:
+You must allow the 'Service account roles' capability config setting in order to enable support for the OAuth 2.0 **Client Credentials grant**:
 
 <p align="center">
   <img src="./docs/quick-start-guide/hapi-fhir-service-account-roles.png" alt="Keycloak Capability Config"/>
