@@ -57,18 +57,10 @@ https://hapi-fhir.au.localhost
 You should see something like:
 
 <p align="center">
-  <img src="./docs/quick-start-guide/oauth2-proxy-sign-in.png" alt="Sign in with OpenID Connect"/>
-</p>
-
-Click the 'Sign in with OpenID Connect' button and sign in using the OpenID Connect (OIDC) **Authorization Code Flow**.
-
-**Note:** You can skip this step if you set `OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: true`
-
-<p align="center">
   <img src="./docs/quick-start-guide/keycloak-sign-in.png" alt="Sign in with your Keycloak Account"/>
 </p>
 
-Enter your username and password and then click the 'Sign In' button:
+Enter your username (hey@rob-ferguson.me) and password (secret) and then click the 'Sign In' button:
 
 <p align="center">
   <img src="./docs/quick-start-guide/hapi-fhir-welcome-page.png" alt="HAPI FHIR Welcome page"/>
