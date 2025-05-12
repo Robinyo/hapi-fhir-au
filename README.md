@@ -8,8 +8,8 @@
   <b>A sample HAPI FHIR with Auth Starter Project.</b> <br>
 </p>
 
-The goal of this project is to demonstrate secure access to FHIR resources in the form of OAuth 2.0-compliant 
-authorisation (i.e., SMART on FHIR) and OpenID Connect authentication.
+The goal of this project is to demonstrate secure access to FHIR resources using OpenID Connect for authentication
+and OAuth 2.0 (i.e., SMART on FHIR) for authorisation.
 
 ![divider](./divider.png)
 
