@@ -19,8 +19,8 @@ docker compose up
 Keycloak will **import** the `hapi-fhir-dev` realm when it starts up:
 
 ```
-  keycloak:
-    container_name: keycloak
+  keycloak.au.localhost:
+    container_name: keycloak.au.localhost
     
     ...
 

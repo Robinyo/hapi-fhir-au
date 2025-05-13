@@ -62,6 +62,9 @@ You should see something like:
 
 Enter your username (hey@rob-ferguson.me) and password (secret), then click the 'Sign In' button to sign in using the OpenID Connect (OIDC) **Authorization Code flow**.
 
+**Note:** I followed the steps in Keycloak's [Getting Started with Docker](https://www.keycloak.org/getting-started/getting-started-docker) guide to create: a realm; a user; and a client. 
+  Keycloak will import the `hapi-fhir-dev` realm (i.e., development-realm.json) when it starts up.
+
 <p align="center">
   <img src="./docs/quick-start-guide/hapi-fhir-welcome-page.png" alt="HAPI FHIR Welcome page"/>
 </p>
