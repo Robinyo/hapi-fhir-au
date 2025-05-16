@@ -6,13 +6,11 @@ services:
       context: ./services/apisix
       dockerfile: Dockerfile
     restart: unless-stopped
-    volumes:
-      - '${PWD}/services/apisix/conf/config.yml:/usr/local/apisix/conf/config.yaml:ro'
-      - '${PWD}/services/apisix/conf/apisix.yml:/usr/local/apisix/conf/apisix.yaml:ro'
     ports:
-      - 80:80
-      - 443:443-
-      # - 9080:9080
+      - 9080:9080
+    volumes:
+      - '${PWD}/services/apisix/conf/config.yml:/usr/local/apisix/conf/config.yaml'
+      - '${PWD}/services/apisix/conf/apisix.yml:/usr/local/apisix/conf/apisix.yaml'
     depends_on:
       keycloak.au.localhost:
         condition: service_healthy
@@ -35,19 +33,20 @@ services:
       interval: 30s
       retries: 5
       timeout: 5s
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    networks:
-      - hapi_fhir_network
+      # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: /run/secrets/pg_password
     env_file:
       - ./.env
+    secrets:
+      - pg_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hapi_fhir_network
 
-  # keycloak
-  #   container_name: keycloak
   keycloak.au.localhost:
     container_name: keycloak.au.localhost
     build:
@@ -75,11 +74,15 @@ services:
     command:
       [
         'start',
+        '-Dkeycloak.migration.action=import',
+        '-Dkeycloak.migration.provider=singleFile',
+        '-Dkeycloak.migration.realmName=hapi-fhir-dev',
+        '-Dkeycloak.migration.strategy=OVERWRITE_EXISTING',
+        '-Dkeycloak.migration.file=/import/development-realm.json',
         '--log-level=INFO,io.vertx.ext.web.impl.RouterImpl:TRACE',
       ]
 
     environment:
-
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
 
       KC_HTTPS_CERTIFICATE_FILE: /etc/keycloak/certs/cert.pem
@@ -87,15 +90,21 @@ services:
 
       KC_PROXY_HEADERS: forwarded
 
-      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
-      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-secret}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN_USERNAME}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      # KC_BOOTSTRAP_ADMIN_PASSWORD: /run/secrets/kc_admin_password
 
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
-      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_DB_PASSWORD: /run/secrets/pg_password
 
       KC_HEALTH_ENABLED: true
+    secrets:
+      - pg_password
+      # - kc_admin_password
+    env_file:
+      - ./.env
 
     # Make sure the certificate and the key (the *.pem files) have the correct permissions -> e.g., sudo chmod 655 *.pem
     volumes:
@@ -112,8 +121,6 @@ services:
         condition: service_healthy
     networks:
       - hapi_fhir_network
-    env_file:
-      - ./.env
 
   hapi-fhir:
     container_name: hapi-fhir
@@ -123,12 +130,18 @@ services:
     restart: unless-stopped
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-admin}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-secret}
-      SPRING_DATASOURCE_DRIVERCLASSNAME: 'org.postgresql.Driver'
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: 'ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect'
-    expose:
-      - 80:80
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: /run/secrets/pg_password
+      SPRING_DATASOURCE_DRIVERCLASSNAME: org.postgresql.Driver
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
+    secrets:
+      - pg_password
+    env_file:
+      - ./.env
+    # expose:
+    #   - 80:80
+    ports:
+      - 8080:8080
     configs:
       - source: hapi
         target: /app/config/application.yaml
@@ -139,8 +152,12 @@ services:
         condition: service_healthy
     networks:
       - hapi_fhir_network
-    env_file:
-      - ./.env
+
+secrets:
+  pg_password:
+    file: ./secrets/pg_password.txt
+  kc_admin_password:
+    file: ./secrets/kc_admin_password.txt
 
 networks:
   hapi_fhir_network:
@@ -148,6 +165,8 @@ networks:
 
 volumes:
   postgres_data:
+    driver: local
+  cache:
     driver: local
 
 configs:

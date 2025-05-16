@@ -2,13 +2,15 @@ routes:
   - uri: /*
     upstream:
       nodes:
-        "httpbin:80": 1
+        "hapi-fhir:8080": 1
     plugins:
       openid-connect:
-        client_id: ${{OIDC_CLIENTID}}
-        client_secret: ${{OIDC_SECRET}}
-        discovery: https://${{OIDC_ISSUER}}/.well-known/openid-configuration
+        client_id: ${{CLIENT_ID}}
+        client_secret: ${{CLIENT_SECRET}}
+        discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
+        # OAUTH2_PROXY_REDIRECT_URL: ${PROTOCOL}://${OAUTH2_PROXY_HOSTNAME}/oauth2/callback
         redirect_uri: http://localhost:9080/callback
-        scope: openid
+        scope: ${{SCOPE}}
         session:
-          secret: ${{SESSION_SECRET}}
+          secret: ${{COOKIE_SECRET}}
+#END
