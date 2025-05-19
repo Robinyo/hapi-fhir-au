@@ -36,6 +36,7 @@ docker compose -f docker-compose-apisix.yml up
 Navigate to:
 
 ```
+# https://hapi-fhir.au.localhost
 http://localhost:9080/
 ```
 
@@ -85,6 +86,7 @@ The user will be prompted to Sign in again:
 Navigate to the OpenAPI (Swagger) UI for the HAPI FHIR R4 Server:
 
 ```
+https://hapi-fhir.au.localhost/fhir
 http://localhost:9080/fhir
 ```
 
@@ -248,7 +250,7 @@ Clean and build:
 
 ```
 docker system prune
-docker compose build
+docker compose -f docker-compose-apisix.yml build
 ```
 
 Misc:

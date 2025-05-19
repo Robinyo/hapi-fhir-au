@@ -5,11 +5,10 @@ routes:
         "hapi-fhir:8080": 1
     plugins:
       openid-connect:
-        bearer_only: false
         client_id: ${{CLIENT_ID}}
         client_secret: ${{CLIENT_SECRET}}
         discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
-        realm: ${{KEYCLOAK_REALM}}
+        # OAUTH2_PROXY_REDIRECT_URL: ${PROTOCOL}://${OAUTH2_PROXY_HOSTNAME}/oauth2/callback
         redirect_uri: http://localhost:9080/callback
         scope: ${{SCOPE}}
         session:

@@ -8,18 +8,18 @@ services:
     restart: unless-stopped
     ports:
       - 9080:9080
-    env_file:
-      - ./.env
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
     volumes:
       - '${PWD}/services/apisix/conf/config.yml:/usr/local/apisix/conf/config.yaml'
       - '${PWD}/services/apisix/conf/apisix.yml:/usr/local/apisix/conf/apisix.yaml'
     depends_on:
       keycloak.au.localhost:
         condition: service_healthy
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
     networks:
       - hapi_fhir_network
+    env_file:
+      - ./.env
 
   postgres:
     container_name: postgres
@@ -52,6 +52,13 @@ services:
     build:
       context: ./services/keycloak
       dockerfile: Dockerfile
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/keycloak/health-check.sh"]
+      start_period: 10s
+      interval: 30s
+      retries: 5
+      timeout: 5s
 
     # 'start-dev',
     # 'start',
@@ -75,16 +82,6 @@ services:
         '--log-level=INFO,io.vertx.ext.web.impl.RouterImpl:TRACE',
       ]
 
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "/opt/keycloak/health-check.sh"]
-      start_period: 10s
-      interval: 30s
-      retries: 5
-      timeout: 5s
-    ports:
-      - 8443:8443
-      - 9000:9000
     environment:
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
 
@@ -95,18 +92,20 @@ services:
 
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN_USERNAME}
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      # KC_BOOTSTRAP_ADMIN_PASSWORD: /run/secrets/kc_admin_password
 
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
-      # KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
       KC_DB_PASSWORD: /run/secrets/pg_password
 
       KC_HEALTH_ENABLED: true
-    env_file:
-      - ./.env
     secrets:
       - pg_password
+      # - kc_admin_password
+    env_file:
+      - ./.env
+
     # Make sure the certificate and the key (the *.pem files) have the correct permissions -> e.g., sudo chmod 655 *.pem
     volumes:
       - '${PWD}/services/keycloak/scripts/health-check.sh:/opt/keycloak/health-check.sh'
@@ -114,6 +113,9 @@ services:
       - '${PWD}/certs/keycloak-key.pem:/etc/keycloak/certs/key.pem'
       - '${PWD}/certs:/opt/keycloak/conf/truststores'
       - '${PWD}:/import'
+    ports:
+      - 8443:8443
+      - 9000:9000
     depends_on:
       postgres:
         condition: service_healthy
@@ -136,6 +138,8 @@ services:
       - pg_password
     env_file:
       - ./.env
+    # expose:
+    #   - 80:80
     ports:
       - 8080:8080
     configs:
@@ -152,6 +156,8 @@ services:
 secrets:
   pg_password:
     file: ./secrets/pg_password.txt
+  kc_admin_password:
+    file: ./secrets/kc_admin_password.txt
 
 networks:
   hapi_fhir_network:
