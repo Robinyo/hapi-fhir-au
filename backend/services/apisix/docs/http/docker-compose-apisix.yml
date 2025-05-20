@@ -1,22 +1,23 @@
 services:
 
-  nginx:
-    container_name: nginx
+  apisix:
+    container_name: apisix
     build:
-      context: ./services/nginx
+      context: ./services/apisix
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - 80:80
-      - 443:443
+      - 9080:9080
+    env_file:
+      - ./.env
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     volumes:
-      - '${PWD}/services/nginx/conf/ssl.conf:/etc/nginx/conf/ssl.conf'
-      - '${PWD}/services/nginx/conf/nginx-default.conf.template:/etc/nginx/templates/default.conf.template'
-      - '${PWD}/certs:/etc/nginx/certs'
+      - '${PWD}/services/apisix/conf/config.yml:/usr/local/apisix/conf/config.yaml'
+      - '${PWD}/services/apisix/conf/apisix.yml:/usr/local/apisix/conf/apisix.yaml'
     depends_on:
-      - apisix
+      keycloak.au.localhost:
+        condition: service_healthy
     networks:
       - hapi_fhir_network
 
@@ -92,8 +93,8 @@ services:
 
       KC_PROXY_HEADERS: forwarded
 
-      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
-      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-secret}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN_USERNAME}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
 
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
@@ -119,27 +120,6 @@ services:
     networks:
       - hapi_fhir_network
 
-  apisix:
-    container_name: apisix
-    build:
-      context: ./services/apisix
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - 4180:4180
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
-    env_file:
-      - ./.env
-    volumes:
-      - '${PWD}/services/apisix/conf/config.yml:/usr/local/apisix/conf/config.yaml'
-      - '${PWD}/services/apisix/conf/apisix.yml:/usr/local/apisix/conf/apisix.yaml'
-    depends_on:
-      keycloak.au.localhost:
-        condition: service_healthy
-    networks:
-      - hapi_fhir_network
-
   hapi-fhir:
     container_name: hapi-fhir
     build:
@@ -156,8 +136,6 @@ services:
       - pg_password
     env_file:
       - ./.env
-    # expose:
-    #   - 80:80
     ports:
       - 8080:8080
     configs:
@@ -174,8 +152,6 @@ services:
 secrets:
   pg_password:
     file: ./secrets/pg_password.txt
-  kc_admin_password:
-    file: ./secrets/kc_admin_password.txt
 
 networks:
   hapi_fhir_network:

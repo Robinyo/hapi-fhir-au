@@ -37,7 +37,8 @@ Navigate to:
 
 ```
 # https://hapi-fhir.au.localhost
-http://localhost:9080/
+# http://localhost:9080/
+https://hapi-fhir.au.localhost:9080
 ```
 
 You should see something like:
@@ -344,6 +345,10 @@ docker volume ls
 
 * Nginx docs: [NGINX SSL Termination](https://docs.nginx.com/nginx/admin-guide/security-controls/terminating-ssl-http/)
 * Nginx docs: [Authentication Based on Subrequest Result](https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-subrequest-authentication/)
+
+### APISIX
+
+* APISIX docs: [Deployment modes](https://apisix.apache.org/docs/apisix/deployment-modes/#standalone)
 
 ### OAuth2 Proxy
 
