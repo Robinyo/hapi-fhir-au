@@ -121,7 +121,6 @@ You should see something like:
 ```
 hapi:
   fhir:
-    # server_address: http://localhost:8080/fhir
     server_address: https://hapi-fhir.au.localhost/fhir
 ```
 
