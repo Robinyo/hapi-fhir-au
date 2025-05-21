@@ -10,7 +10,9 @@
 
 <p align="center">
   The goal of this project is to demonstrate secure access to FHIR resources using OpenID Connect for authentication and OAuth 2.0 (i.e., SMART on FHIR) for authorisation. <br>
+</p>
 
+<p align="center">
   HAPI FHIR Server Version: 8.0.0 <br>
   FHIR Version: 4.0.1 (R4) <br>
 </p>
