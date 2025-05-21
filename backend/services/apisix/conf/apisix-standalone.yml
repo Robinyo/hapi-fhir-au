@@ -1,5 +1,6 @@
 routes:
   - uri: /*
+    host: hapi-fhir.au.localhost
     upstream:
       nodes:
         "hapi-fhir:8080": 1
