@@ -47,6 +47,8 @@ cd ~/workspace/hapi-fhir-au/backend
 # APISIX
 docker compose -f docker-compose-apisix.yml up
 
+# OR
+
 # Nginx
 docker compose -f docker-compose-nginx.yml up
 ```
