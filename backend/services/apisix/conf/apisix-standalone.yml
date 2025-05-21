@@ -11,8 +11,7 @@ routes:
         client_secret: ${{CLIENT_SECRET}}
         discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
         realm: ${{KEYCLOAK_REALM}}
-        # redirect_uri: http://localhost:9080/callback
-        redirect_uri: https://hapi-fhir.au.localhost:9443/callback
+        redirect_uri: ${{PROTOCOL}}://${{HAPI_FHIR_HOSTNAME}}/oauth2/callback
         scope: ${{SCOPE}}
         session:
           secret: ${{COOKIE_SECRET}}

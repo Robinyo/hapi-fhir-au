@@ -43,7 +43,12 @@ With a single command, you can create and start all the services:
 
 ```
 cd ~/workspace/hapi-fhir-au/backend
-docker compose up
+
+# APISIX
+docker compose -f docker-compose-apisix.yml up
+
+# Nginx
+docker compose -f docker-compose-nginx.yml up
 ```
 
 **Note:** Docker Compose will look for an `.env` file in the current working directory.
@@ -123,19 +128,27 @@ See: [hapi.application.yaml](https://github.com/Robinyo/hapi-fhir-au/blob/main/b
 To stop the services:
 
 ```
-docker compose stop
+# APISIX
+docker compose -f docker-compose-apisix.yml stop
+
+# Nginx
+docker compose -f docker-compose-nginx.yml stop
 ```
 
 To remove the services:
 
 ```
-docker compose down
+# APISIX
+docker compose -f docker-compose-apisix.yml down
+
+# Nginx
+docker compose -f docker-compose-nginx.yml down
 ```
 
 To remove the data volumes:
 
 ```
-docker volume rm backend_postgres_data &&
+docker volume rm backend_postgres_data
 docker volume rm backend_cache
 ```
 
@@ -257,6 +270,7 @@ Keycloak will import the `hapi-fhir-dev` realm when it starts up:
 Check the logs:
 
 ```
+docker logs --tail 100 apisix
 docker logs --tail 100 oauth2-proxy
 docker logs --tail 100 keycloak
 ```
@@ -272,6 +286,8 @@ Misc:
 
 ```
 docker container ps -a
+docker compose -f docker-compose-apisix.yml ps
+docker compose -f docker-compose-nginx.yml ps
 docker container ls
 docker image ls
 docker volume ls
@@ -321,12 +337,6 @@ docker volume ls
 
 * GitHub: [Zedwerks - Keycloak extensions for FHIR](https://github.com/zedwerks/keycloak-smart-fhir)
 
-### HAPI FHIR
-
-* HAPI FHIR: [Website](https://hapifhir.io/)
-* HAPI FHIR: [Documentation](https://hapifhir.io/hapi-fhir/docs/)
-* Google Group: [HAPI FHIR](https://groups.google.com/g/hapi-fhir)
-
 ### Keycloak
 
 * Keycloak docs: [Configuring Keycloak for production](https://www.keycloak.org/server/configuration-production)
@@ -349,11 +359,9 @@ docker volume ls
 * Google Group: [Keycloak User](https://groups.google.com/g/keycloak-user)
 * Google Group: [Keycloak Dev](https://groups.google.com/g/keycloak-dev)
 
-### okta
+### APISIX
 
-* okta Developer blog: [Add Auth to Any App with OAuth2 Proxy](https://developer.okta.com/blog/2022/07/14/add-auth-to-any-app-with-oauth2-proxy)
-* okta forum: [SMART on FHIR wildcard scopes](https://devforum.okta.com/t/creating-wildcard-custom-scopes-for-oauth2/27418)
-* GitHub: [Okta SMART on FHIR Setup Guide - scopes](https://github.com/oktadev/okta-smartfhir-docs/blob/original-v1-documentation/SETUP.md#scopes)
+* APISIX docs: [Deployment modes](https://apisix.apache.org/docs/apisix/deployment-modes/#standalone)
 
 ### Nginx
 
@@ -365,6 +373,12 @@ docker volume ls
 * OAuth2 Proxy docs: [Integration](https://oauth2-proxy.github.io/oauth2-proxy/configuration/integration)
 * OAuth2 Proxy docs: [TLS Configuration](https://oauth2-proxy.github.io/oauth2-proxy/configuration/tls/)
 
+### HAPI FHIR
+
+* HAPI FHIR: [Website](https://hapifhir.io/)
+* HAPI FHIR: [Documentation](https://hapifhir.io/hapi-fhir/docs/)
+* Google Group: [HAPI FHIR](https://groups.google.com/g/hapi-fhir)
+
 ### Terminology
 
 * HL7 Australia: [Terminology](https://confluence.hl7.org/display/HAFWG/Terminology)
@@ -373,3 +387,9 @@ docker volume ls
 ### Clinical Information Systems
 
 * Oracle Health Millennium Platform: [Authorization Framework](https://docs.oracle.com/en/industries/health/millennium-platform-apis/fhir-authorization-framework/#authorization)
+
+### okta
+
+* okta Developer blog: [Add Auth to Any App with OAuth2 Proxy](https://developer.okta.com/blog/2022/07/14/add-auth-to-any-app-with-oauth2-proxy)
+* okta forum: [SMART on FHIR wildcard scopes](https://devforum.okta.com/t/creating-wildcard-custom-scopes-for-oauth2/27418)
+* GitHub: [Okta SMART on FHIR Setup Guide - scopes](https://github.com/oktadev/okta-smartfhir-docs/blob/original-v1-documentation/SETUP.md#scopes)
