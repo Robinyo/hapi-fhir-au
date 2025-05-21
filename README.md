@@ -366,7 +366,7 @@ docker volume ls
 * APISIX docs: [Deployment modes](https://apisix.apache.org/docs/apisix/deployment-modes/#standalone)
 * APISIX docs: [SSL Protocol](https://apisix.apache.org/docs/apisix/ssl-protocol/)
 * APISIX docs: [Certificate](https://apisix.apache.org/docs/apisix/certificate/)
-* APISIX docs: [Plugin - OpenID Connect](https://apisix.apache.org/docs/apisix/plugins/openid-connect/)
+* APISIX docs: [Plugins - OpenID Connect](https://apisix.apache.org/docs/apisix/plugins/openid-connect/)
 
 ### Nginx
 
