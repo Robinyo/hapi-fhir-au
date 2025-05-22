@@ -1,5 +1,10 @@
-plugin_configs:
-  - id: 1
+routes:
+  - uri: /*
+    host: hapi-fhir.au.localhost
+    upstream:
+      nodes:
+        "hapi-fhir:8080": 1
+      type: roundrobin
     plugins:
       openid-connect:
         bearer_only: false
@@ -11,42 +16,6 @@ plugin_configs:
         scope: ${{SCOPE}}
         session:
           secret: ${{COOKIE_SECRET}}
-
-  - id: 2
-    plugins:
-      openid-connect:
-        bearer_only: true
-        client_id: ${{CLIENT_ID}}
-        client_secret: ${{CLIENT_SECRET}}
-        discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
-
-upstreams:
-  - name: hapi-fhir-service
-    id: 1
-    type: roundrobin
-    nodes:
-      "hapi-fhir:8080": 1
-
-routes:
-  - name: hapi-fhir-web-ui
-    uri: /*
-    methods: [ "GET", "HEAD" ]
-    plugin_config_id: 1
-    upstream_id: 1
-
-  - name: hapi-fhir-api
-    # uri: /fhir/Patient*
-    uri: /fhir*
-    # methods: [ "PUT", "POST", "GET", "PATCH", "DELETE" ]
-    plugin_config_id: 2
-    upstream_id: 1
-    plugins:
-      openid-connect:
-        bearer_only: true
-        client_id: ${{CLIENT_ID}}
-        client_secret: ${{CLIENT_SECRET}}
-        discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
-        required_scopes: [ "system/Patient.read" ]
 
 ssls:
   -
