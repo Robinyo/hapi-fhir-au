@@ -28,28 +28,26 @@ upstreams:
       "hapi-fhir:8080": 1
 
 routes:
-  - name: hapi-fhir-web-ui
+  - name: hapi-fhir-web-testpage-overlay
     uri: /*
     methods: [ "GET", "HEAD" ]
     plugin_config_id: 1
     upstream_id: 1
 
-  - name: hapi-fhir-web-ui
+  - name: hapi-fhir-swagger-ui
     uri: /fhir/swagger-ui*
     methods: [ "GET", "HEAD" ]
     plugin_config_id: 1
     upstream_id: 1
 
-  - name: hapi-fhir-web-ui
+  - name: hapi-fhir-api-docs
     uri: /fhir/api-docs*
     methods: [ "GET", "HEAD" ]
     plugin_config_id: 1
     upstream_id: 1
 
   - name: hapi-fhir-api
-    # uri: /fhir/Patient*
     uri: /fhir*
-    # methods: [ "PUT", "POST", "GET", "PATCH", "DELETE" ]
     plugin_config_id: 2
     upstream_id: 1
     plugins:

@@ -94,7 +94,6 @@ services:
       - 9000:9000
     environment:
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
-      # KC_FRONTEND_URL: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/auth
 
       KC_HTTPS_CERTIFICATE_FILE: /etc/keycloak/certs/cert.pem
       KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/keycloak/certs/key.pem
