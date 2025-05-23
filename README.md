@@ -196,7 +196,7 @@ For example:
 
 ```
 curl -X POST "https://keycloak.au.localhost:8443/realms/hapi-fhir-dev/protocol/openid-connect/token/introspect" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
+  -H 'content-type: application/x-www-form-urlencoded' \
   -d client_id=oauth2-proxy \
   -d client_secret=aHkRec1BYkfaKgMg164JmvKu8u9iWNHM \
   -d "token_type_hint=access_token&token=$ACCESS_TOKEN"
