@@ -54,6 +54,7 @@ routes:
 
   - name: hapi-fhir-api
     uri: /fhir/Patient*
+    methods: [ "GET" ]
     upstream_id: 1
     plugins:
       openid-connect:
