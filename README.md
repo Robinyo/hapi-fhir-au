@@ -188,6 +188,20 @@ ACCESS_TOKEN=$(curl -s -X POST https://keycloak.au.localhost:8443/realms/hapi-fh
 
 **Note:** You can use [jwt.io](https://jwt.io/) to decode the access token.
 
+#### Introspect a token
+
+To introspect an Access Token you will need to POST to the introspect URL.
+
+For example:
+
+```
+curl -X POST "https://keycloak.au.localhost:8443/realms/hapi-fhir-dev/protocol/openid-connect/token/introspect" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d client_id=oauth2-proxy \
+  -d client_secret=aHkRec1BYkfaKgMg164JmvKu8u9iWNHM \
+  -d "token_type_hint=access_token&token=$ACCESS_TOKEN"
+```
+
 #### Call the API
 
 To call the API, an application must pass the access token as a Bearer token in the Authorization header of your HTTP request.
