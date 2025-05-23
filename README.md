@@ -528,6 +528,15 @@ docker volume ls
 * okta Developer blog: [OAuth for Java Developers](https://developer.okta.com/blog/2022/06/16/oauth-java)
 * OAuth.com: [OAuth 2.0 Playground](https://www.oauth.com/playground/?_gl=1*1fwid4n*_gcl_au*MjEyMTY2MzU4NS4xNzM1MDI2MjQ4*_ga*MTk3OTgwNDIxNS4xNzM1MDI2MjQ4*_ga_QKMSDV5369*MTczNjAyMjIyMS42LjEuMTczNjAyMjkyOS41Ny4wLjA.)
 
+### HL7
+
+* HL7: [Implementation Guide](https://www.hl7.org/fhir/implementationguide.html)
+* HL7: [FHIR NPM Packages](https://hl7.org/fhir/packages.html)
+* AU Core: [Publication (Version) History](https://hl7.org.au/fhir/core/history.html)
+* AU Core FHIR Implementation Guide: [AU Core - 1.0.0-preview](https://hl7.org.au/fhir/core/1.0.0-preview/index.html)
+* AU Core FHIR Implementation Guide: [Testing FAQs](https://confluence.hl7.org/display/HAFWG/AU+Core+FHIR+IG+Testing+FAQs)
+* Sparked AU Core Test Data [Postman collection](https://github.com/hl7au/au-fhir-test-data/blob/master/Postman/Sparked%20AUCore%20Test%20Data.postman_collection.json)
+
 ### SMART on FHIR
 
 * HL7: [SMART App Launch](https://build.fhir.org/ig/HL7/smart-app-launch/)
