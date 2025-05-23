@@ -34,6 +34,12 @@ routes:
     plugin_config_id: 1
     upstream_id: 1
 
+  - name: hapi-fhir
+    uri: /fhir
+    methods: [ "GET", "HEAD" ]
+    plugin_config_id: 1
+    upstream_id: 1
+
   - name: hapi-fhir-swagger-ui
     uri: /fhir/swagger-ui*
     methods: [ "GET", "HEAD" ]
