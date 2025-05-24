@@ -3,7 +3,7 @@
 * Administrator Documentation
   * [Working with Docker](./administrator/docker.md)
   * [Working with PostgreSQL](./administrator/postgres.md)
-  * [Working with Keycloak](./administrator/keycloak.md)
+  * [Working with Keycloak](./administrator/keycloak/keycloak.md)
 * Developer Documentation
   * [mkcert](./developer/mkcert.md)
   * [Let's Encrypt](./developer/lets-encrypt.md)
