@@ -12,7 +12,7 @@ For example:
   <img src="./keycloak-create-admin-user.png" alt="Create Admin user"/>
 </p>
 
-Don't forget to assign the admin role to the permanent admin account:
+Don't forget to assign the admin role (role_admin) to the permanent admin account:
 
 <p align="center">
   <img src="./keycloak-assign-role-to-admin.png" alt="Assign role to Admin user"/>
