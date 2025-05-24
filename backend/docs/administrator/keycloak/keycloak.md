@@ -6,6 +6,8 @@ When you first start Keycloak you login using the Keycloak bootstrap username an
 
 You should create a permanent admin account and delete the temporary one.
 
+For example:
+
 <p align="center">
   <img src="./keycloak-create-admin-user.png" alt="Create Admin user"/>
 </p>
