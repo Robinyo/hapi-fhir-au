@@ -55,7 +55,6 @@ routes:
   - name: hapi-fhir-api
     host: hapi-fhir.au.localhost
     uri: /fhir/Patient*
-    methods: [ "GET" ]
     upstream_id: 1
     plugins:
       authz-keycloak:
@@ -65,20 +64,6 @@ routes:
         client_secret: ${{CLIENT_SECRET}}
         discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
         permissions: [ "Patient#Patient.read" ]
-
-  - name: hapi-fhir-api
-    host: hapi-fhir.au.localhost
-    uri: /fhir/Patient*
-    methods: [ "POST", "PUT", "PATCH", "DELETE" ]
-    upstream_id: 1
-    plugins:
-      authz-keycloak:
-        lazy_load_paths: false
-        ssl_verify: false
-        client_id: ${{CLIENT_ID}}
-        client_secret: ${{CLIENT_SECRET}}
-        discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
-        permissions: [ "Patient#Patient.write" ]
 
 ssls:
   -
