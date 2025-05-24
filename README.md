@@ -209,46 +209,6 @@ To call the API, an application must pass the access token as a Bearer token in 
 For example:
 
 ```
-curl -X GET https://hapi-fhir.au.localhost/fhir/metadata \
-  -H 'Content-Type: application/fhir+json' \
-  -H "Authorization: Bearer $ACCESS_TOKEN"
-```
-
-You should see something like:
-
-```
-{
-  "resourceType": "CapabilityStatement",
-  "id": "e34dd06c-a04c-4612-85a7-353bdd33208e",
-  "text": {
-    "status": "generated",
-    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">HAPI FHIR Server</div>"
-  },
-  "name": "RestServer",
-  "status": "active",
-  "date": "2025-05-16T02:13:24Z",
-  "publisher": "Not provided",
-  "kind": "instance",
-  "software": {
-    "name": "HAPI FHIR Server",
-    "version": "8.0.0"
-  },
-  "implementation": {
-    "description": "HAPI FHIR R4 Server",
-    "url": "https://hapi-fhir.au.localhost/fhir"
-  },
-  "fhirVersion": "4.0.1",
-  "format": [ "application/fhir+xml", "xml", "application/fhir+json", "json", "application/x-turtle", "ttl", "html/json", "html/xml", "html/turtle" ],
-  "patchFormat": [ "application/fhir+json", "application/fhir+xml", "application/json-patch+json", "application/xml-patch+xml" ],
-
-    ...
-    
-}
-```
-
-For example:
-
-```
 curl -X GET https://hapi-fhir.au.localhost/fhir/Patient?_id=baratz-toni \
   -H 'Content-Type: application/fhir+json' \
   -H "Authorization: Bearer $ACCESS_TOKEN"
