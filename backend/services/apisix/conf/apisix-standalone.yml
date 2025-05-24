@@ -12,14 +12,6 @@ plugin_configs:
         session:
           secret: ${{COOKIE_SECRET}}
 
-  - id: 2
-    plugins:
-      openid-connect:
-        bearer_only: true
-        client_id: ${{CLIENT_ID}}
-        client_secret: ${{CLIENT_SECRET}}
-        discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
-
 upstreams:
   - name: hapi-fhir-service
     id: 1
