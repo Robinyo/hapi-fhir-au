@@ -21,7 +21,7 @@ Don't forget to assign the admin role (role_admin) to the permanent admin accoun
 And to set a password:
 
 <p align="center">
-  <img src="./keycloak-create-admin-user.png" alt="Create Admin User"/>
+  <img src="./keycloak-set-password-for-admin.png" alt="Set a password for the Admin user"/>
 </p>
 
 ### Importing and Exporting Realms
