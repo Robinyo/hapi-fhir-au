@@ -4,7 +4,7 @@
 
 When you first start Keycloak you login using the Keycloak bootstrap username and password.
 
-You should create a permanent admin account and delete the temporary one.
+You should create a permanent admin account in the master realm and delete the temporary one.
 
 For example:
 
