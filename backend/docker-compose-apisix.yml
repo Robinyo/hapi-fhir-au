@@ -6,13 +6,13 @@ services:
       context: ./services/apisix
       dockerfile: Dockerfile
     restart: unless-stopped
+    ports:
+      - 80:9080
+      - 443:9443
     environment:
       APISIX_STAND_ALONE: true
       APISIX_SSL_CERT: /usr/local/apisix/conf/cert/cert.pem
       APISIX_SSL_CERT_KEY: /usr/local/apisix/conf/cert/key.pem
-    ports:
-      - 80:9080
-      - 443:9443
     env_file:
       - ./.env
     extra_hosts:
@@ -40,6 +40,8 @@ services:
       interval: 30s
       retries: 5
       timeout: 5s
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -59,21 +61,9 @@ services:
     build:
       context: ./services/keycloak
       dockerfile: Dockerfile
-
-    # 'start-dev',
-    # 'start',
-    # '-Dauto-build',
-    # '--log-level=INFO,io.vertx.ext.web.impl.RouterImpl:TRACE',
-
-    # '-Dkeycloak.migration.action=import',
-    # '-Dkeycloak.migration.provider=singleFile',
-    # '-Dkeycloak.migration.realmName=hapi-fhir-dev',
-    # '-Dkeycloak.migration.strategy=OVERWRITE_EXISTING',
-    # '-Dkeycloak.migration.file=/import/development-realm.json',
-
     command:
       [
-        'start',
+        'start-dev',
         '-Dkeycloak.migration.action=import',
         '-Dkeycloak.migration.provider=singleFile',
         '-Dkeycloak.migration.realmName=hapi-fhir-dev',
@@ -81,7 +71,6 @@ services:
         '-Dkeycloak.migration.file=/import/development-realm.json',
         '--log-level=INFO,io.vertx.ext.web.impl.RouterImpl:TRACE',
       ]
-
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "/opt/keycloak/health-check.sh"]
@@ -121,6 +110,7 @@ services:
       - '${PWD}/certs/keycloak-key.pem:/etc/keycloak/certs/key.pem'
       - '${PWD}/certs:/opt/keycloak/conf/truststores'
       - '${PWD}:/import'
+      # - '${PWD}:/export'
     depends_on:
       postgres:
         condition: service_healthy
@@ -133,18 +123,18 @@ services:
       context: ./services/hapi-fhir
       dockerfile: Dockerfile
     restart: unless-stopped
+    ports:
+      - 8080:8080
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: /run/secrets/pg_password
       SPRING_DATASOURCE_DRIVERCLASSNAME: org.postgresql.Driver
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
-    secrets:
-      - pg_password
     env_file:
       - ./.env
-    ports:
-      - 8080:8080
+    secrets:
+      - pg_password
     configs:
       - source: hapi
         target: /app/config/application.yaml

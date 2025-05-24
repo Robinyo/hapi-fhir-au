@@ -407,7 +407,7 @@ You should see something like:
 
 #### Admin Console
 
-To navigate to the Keycloak Admin Console (username: admin and password: secret):
+To navigate to the Keycloak Admin Console (username: temp-admin and password: secret):
 
 ```
 https://keycloak.au.localhost:8443
@@ -418,6 +418,8 @@ You should see something like:
 <p align="center">
   <img src="./docs/quick-start-guide/keycloak-welcome-page.png" alt="Keycloak Admin Console Welcome page"/>
 </p>
+
+Follow these [steps](./backend/docs/administrator/keycloak.md) to create a permanent admin account.
 
 You can preview tokens in the Keycloak Admin Console, for example:
 
@@ -439,38 +441,6 @@ You should see something like:
   <img src="./docs/quick-start-guide/keycloak-account-welcome-page.png" alt="Keycloak Account Console Welcome page"/>
 </p>
 
-#### Realm Export
-
-To export the `hapi-fhir-dev` realm to a single file (development-realm.json):
-
-```
-docker compose stop
-docker compose -f docker-compose-keycloak-realm-export.yml up
-docker compose -f docker-compose-keycloak-realm-export.yml stop
-docker compose up
-```
-
-#### Realm Import
-
-Keycloak will import the `hapi-fhir-dev` realm when it starts up:
-
-```
-  keycloak.au.localhost:
-    container_name: keycloak.au.localhost
-    
-    ...
-
-    command:
-      [
-        'start',
-        '-Dkeycloak.migration.action=import',
-        '-Dkeycloak.migration.provider=singleFile',
-        '-Dkeycloak.migration.realmName=hapi-fhir-dev',
-        '-Dkeycloak.migration.strategy=OVERWRITE_EXISTING',
-        '-Dkeycloak.migration.file=/import/development-realm.json',
-      ]
-```
-
 ### Miscellaneous
 
 Check the logs:
@@ -485,7 +455,14 @@ Clean and build:
 
 ```
 docker system prune
-docker compose build
+
+# APISIX
+docker compose -f docker-compose-apisix.yml build
+
+# OR
+
+# Nginx
+docker compose -f docker-compose-nginx.yml build
 ```
 
 Misc:
