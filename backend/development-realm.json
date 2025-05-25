@@ -408,8 +408,8 @@
     "clientConsents" : [ {
       "clientId" : "oauth2-proxy",
       "grantedClientScopes" : [ "profile", "email", "roles", "patient/AllergyIntolerance.read" ],
-      "createdDate" : 1737328568800,
-      "lastUpdatedDate" : 1737338220008
+      "createdDate" : 1748154888742,
+      "lastUpdatedDate" : 1748154888750
     } ],
     "notBefore" : 1737331440,
     "groups" : [ ]
@@ -593,6 +593,7 @@
     "implicitFlowEnabled" : false,
     "directAccessGrantsEnabled" : false,
     "serviceAccountsEnabled" : true,
+    "authorizationServicesEnabled" : true,
     "publicClient" : false,
     "frontchannelLogout" : true,
     "protocol" : "openid-connect",
@@ -601,10 +602,12 @@
       "oidc.ciba.grant.enabled" : "false",
       "client.secret.creation.time" : "1735531504",
       "backchannel.logout.session.required" : "true",
+      "standard.token.exchange.enabled" : "false",
       "login_theme" : "keycloak.v2",
+      "frontchannel.logout.session.required" : "true",
       "post.logout.redirect.uris" : "+",
-      "oauth2.device.authorization.grant.enabled" : "false",
       "display.on.consent.screen" : "false",
+      "oauth2.device.authorization.grant.enabled" : "false",
       "backchannel.logout.revoke.offline.tokens" : "false"
     },
     "authenticationFlowBindingOverrides" : { },
@@ -618,8 +621,9 @@
       "consentRequired" : false,
       "config" : {
         "user.session.note" : "clientHost",
-        "id.token.claim" : "true",
         "introspection.token.claim" : "true",
+        "userinfo.token.claim" : "true",
+        "id.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "clientHost",
         "jsonType.label" : "String"
@@ -646,8 +650,9 @@
       "consentRequired" : false,
       "config" : {
         "user.session.note" : "client_id",
-        "id.token.claim" : "true",
         "introspection.token.claim" : "true",
+        "userinfo.token.claim" : "true",
+        "id.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "client_id",
         "jsonType.label" : "String"
@@ -660,15 +665,70 @@
       "consentRequired" : false,
       "config" : {
         "user.session.note" : "clientAddress",
-        "id.token.claim" : "true",
         "introspection.token.claim" : "true",
+        "userinfo.token.claim" : "true",
+        "id.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "clientAddress",
         "jsonType.label" : "String"
       }
     } ],
-    "defaultClientScopes" : [ "web-origins", "acr", "profile", "roles", "basic", "email" ],
-    "optionalClientScopes" : [ "address", "system/Patient.read", "phone", "organization", "offline_access", "patient/AllergyIntolerance.read", "microprofile-jwt" ]
+    "defaultClientScopes" : [ "service_account", "web-origins", "acr", "profile", "roles", "basic", "email" ],
+    "optionalClientScopes" : [ "address", "system/Patient.read", "phone", "organization", "offline_access", "patient/AllergyIntolerance.read", "microprofile-jwt" ],
+    "authorizationSettings" : {
+      "allowRemoteResourceManagement" : true,
+      "policyEnforcementMode" : "ENFORCING",
+      "resources" : [ {
+        "name" : "Default Resource",
+        "type" : "urn:oauth2-proxy:resources:default",
+        "ownerManagedAccess" : false,
+        "attributes" : { },
+        "uris" : [ "/*" ]
+      }, {
+        "name" : "Patient",
+        "ownerManagedAccess" : false,
+        "displayName" : "Patient",
+        "attributes" : { },
+        "uris" : [ "fhir/Patient" ],
+        "scopes" : [ {
+          "name" : "Patient.write"
+        }, {
+          "name" : "Patient.read"
+        } ],
+        "icon_uri" : ""
+      } ],
+      "policies" : [ {
+        "name" : "patient-read-client-scope-policy",
+        "description" : "",
+        "type" : "client-scope",
+        "logic" : "POSITIVE",
+        "decisionStrategy" : "UNANIMOUS",
+        "config" : {
+          "clientScopes" : "[{\"id\":\"system/Patient.read\",\"required\":false}]"
+        }
+      }, {
+        "name" : "patient-read-scope-permission",
+        "description" : "",
+        "type" : "scope",
+        "logic" : "POSITIVE",
+        "decisionStrategy" : "UNANIMOUS",
+        "config" : {
+          "resources" : "[\"Patient\"]",
+          "scopes" : "[\"Patient.read\"]",
+          "applyPolicies" : "[\"patient-read-client-scope-policy\"]"
+        }
+      } ],
+      "scopes" : [ {
+        "name" : "Patient.read",
+        "iconUri" : "",
+        "displayName" : "Patient.read"
+      }, {
+        "name" : "Patient.write",
+        "iconUri" : "",
+        "displayName" : "Patient.write"
+      } ],
+      "decisionStrategy" : "UNANIMOUS"
+    }
   }, {
     "id" : "d134aaea-8198-4e8a-955f-65d99917c7e8",
     "clientId" : "realm-management",
@@ -1259,6 +1319,58 @@
       }
     } ]
   }, {
+    "id" : "7dc97327-8fd8-4ca3-8f57-f7160699eca6",
+    "name" : "service_account",
+    "description" : "Specific scope for a client enabled for service accounts",
+    "protocol" : "openid-connect",
+    "attributes" : {
+      "include.in.token.scope" : "false",
+      "display.on.consent.screen" : "false"
+    },
+    "protocolMappers" : [ {
+      "id" : "31be040b-feea-41f2-a612-9a05e98e18dd",
+      "name" : "Client IP Address",
+      "protocol" : "openid-connect",
+      "protocolMapper" : "oidc-usersessionmodel-note-mapper",
+      "consentRequired" : false,
+      "config" : {
+        "user.session.note" : "clientAddress",
+        "id.token.claim" : "true",
+        "introspection.token.claim" : "true",
+        "access.token.claim" : "true",
+        "claim.name" : "clientAddress",
+        "jsonType.label" : "String"
+      }
+    }, {
+      "id" : "7b37e877-ff31-4f05-88fc-00128c7fb213",
+      "name" : "Client Host",
+      "protocol" : "openid-connect",
+      "protocolMapper" : "oidc-usersessionmodel-note-mapper",
+      "consentRequired" : false,
+      "config" : {
+        "user.session.note" : "clientHost",
+        "id.token.claim" : "true",
+        "introspection.token.claim" : "true",
+        "access.token.claim" : "true",
+        "claim.name" : "clientHost",
+        "jsonType.label" : "String"
+      }
+    }, {
+      "id" : "b4229d7b-94cc-4a84-9ccd-41f7810d3024",
+      "name" : "Client ID",
+      "protocol" : "openid-connect",
+      "protocolMapper" : "oidc-usersessionmodel-note-mapper",
+      "consentRequired" : false,
+      "config" : {
+        "user.session.note" : "client_id",
+        "id.token.claim" : "true",
+        "introspection.token.claim" : "true",
+        "access.token.claim" : "true",
+        "claim.name" : "client_id",
+        "jsonType.label" : "String"
+      }
+    } ]
+  }, {
     "id" : "c161f2d5-05f9-4dd8-aa48-9d75cb8c30d7",
     "name" : "roles",
     "description" : "OpenID Connect scope for add user roles to the access token",
@@ -1394,7 +1506,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "oidc-full-name-mapper", "oidc-usermodel-property-mapper", "saml-role-list-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-user-property-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper", "saml-role-list-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper" ]
       }
     }, {
       "id" : "c00eca02-8ce1-424f-9bd8-12dca08eec5a",
@@ -1428,7 +1540,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-property-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-address-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "oidc-usermodel-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "saml-role-list-mapper", "oidc-address-mapper", "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper" ]
       }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {
@@ -2104,22 +2216,23 @@
   "firstBrokerLoginFlow" : "first broker login",
   "attributes" : {
     "cibaBackchannelTokenDeliveryMode" : "poll",
+    "cibaExpiresIn" : "120",
     "cibaAuthRequestedUserHint" : "login_hint",
+    "oauth2DeviceCodeLifespan" : "600",
     "clientOfflineSessionMaxLifespan" : "0",
     "oauth2DevicePollingInterval" : "5",
     "clientSessionIdleTimeout" : "0",
-    "clientOfflineSessionIdleTimeout" : "0",
-    "cibaInterval" : "5",
-    "realmReusableOtpCode" : "false",
-    "cibaExpiresIn" : "120",
-    "oauth2DeviceCodeLifespan" : "600",
     "parRequestUriLifespan" : "60",
     "clientSessionMaxLifespan" : "0",
-    "organizationsEnabled" : "false"
+    "clientOfflineSessionIdleTimeout" : "0",
+    "cibaInterval" : "5",
+    "realmReusableOtpCode" : "false"
   },
-  "keycloakVersion" : "26.0.7",
+  "keycloakVersion" : "26.2.4",
   "userManagedAccessAllowed" : false,
   "organizationsEnabled" : false,
+  "verifiableCredentialsEnabled" : false,
+  "adminPermissionsEnabled" : false,
   "clientProfiles" : {
     "profiles" : [ ]
   },
