@@ -30,7 +30,7 @@ See: [Keycloak - Authorization Services Guide](https://www.keycloak.org/docs/lat
 
 The `authz-keycloak` plugin can be configured to support different scenarios. 
 
-For example, you can configure Keycloak to use scope-based permissions associated with a client scope policy, and configure the `authz-keycloak` plugin to use static permissions.
+For example, you can configure Keycloak to use scope-based permissions associated with a client scope policy and configure the `authz-keycloak` plugin to use static permissions.
 
 #### Create Authorisation Scope in Keycloak
 
