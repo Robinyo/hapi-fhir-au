@@ -46,7 +46,7 @@ For example:
   permissions: [ "Patient#Patient.read" ]
 ```
 
-Each entry in the 'permissions' attribute must be formatted as expected by the token endpoint's attribute.
+Each entry in the 'permissions' attribute must be formatted as expected by the token endpoint's permission parameter.
 
 For example: "Resource#Authorisation Scope"
 
