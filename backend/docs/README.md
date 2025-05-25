@@ -3,7 +3,7 @@
 * Administrator Documentation
   * [Working with APISIX](./apisix/apisix.md)
   * [Working with Docker](./administrator/docker.md)
-  * [Working with Keycloak](./administrator/keycloak/keycloak.md)* 
+  * [Working with Keycloak](./administrator/keycloak/keycloak.md)
   * [Working with PostgreSQL](./administrator/postgres.md)
 * Developer Documentation
   * [mkcert](./developer/mkcert.md)
