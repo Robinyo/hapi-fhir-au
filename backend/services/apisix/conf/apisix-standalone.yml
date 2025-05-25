@@ -58,6 +58,12 @@ routes:
         discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
         permissions: [ "Patient#Patient.read" ]
 
+  - name: hapi-fhir-api
+    host: hapi-fhir.au.localhost
+    uri: /fhir/Patient*
+    methods: [ "POST", "PUT", "PATCH", "DELETE" ]
+    upstream_id: 1
+
 ssls:
   -
     cert: |
