@@ -10,6 +10,14 @@ You must allow the 'Authorization' capability config setting in order to enable 
   <img src="./keycloak-capability-config-authorization.png" alt="Create Admin user"/>
 </p>
 
+When you enable 'Authorization' capability config setting Keycloak will create a Default Policy:
+
+<p align="center">
+  <img src="./keycloak-authorization-server-default-policy.png" alt="Create Admin user"/>
+</p>
+
+You need to delete this policy if you want to 'export' then 'import' your realm settings.
+
 ## ❯ APISIX
 
 ### AuthZ Keycloak
