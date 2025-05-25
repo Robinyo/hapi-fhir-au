@@ -32,8 +32,25 @@ See: [Keycloak - Authorization Services Guide](https://www.keycloak.org/docs/lat
 
 The `authz-keycloak` plugin can be configured to support different authorisation scenarios.
 
-For example, you can configure Keycloak to use scope-based permissions associated with a client scope policy and configure the `authz-keycloak` plugin to use static permissions.
+You can configure Keycloak to use scope-based permissions associated with a client scope policy and configure the `authz-keycloak` plugin to use static permissions.
 
+For example:
+
+- Resource: Patient
+- Authorisation Scope: Patient.read
+- Client Scope: system/Patient.read
+- Client Scope Policy: patient-read-client-scope-policy
+- Scope-based Permission: patient-read-scope-permission
+
+```
+  permissions: [ "Patient#Patient.read" ]
+```
+
+Each entry in the 'permissions' attribute must be formatted as expected by the token endpoint's attribute.
+
+For example: "Resource#Authorisation Scope"
+
+See: [Obtaining permissions](https://www.keycloak.org/docs/latest/authorization_services/index.html#_service_obtaining_permissions)
 #### Create an Authorisation Scope in Keycloak
 
 Create an Authorisation Scope (Patient.read) in Keycloak:
