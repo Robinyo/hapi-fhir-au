@@ -110,7 +110,7 @@ services:
       - '${PWD}/certs/keycloak-key.pem:/etc/keycloak/certs/key.pem'
       - '${PWD}/certs:/opt/keycloak/conf/truststores'
       - '${PWD}:/import'
-      # - '${PWD}:/export'
+      - '${PWD}:/export'
     depends_on:
       postgres:
         condition: service_healthy

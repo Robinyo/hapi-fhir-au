@@ -408,8 +408,8 @@
     "clientConsents" : [ {
       "clientId" : "oauth2-proxy",
       "grantedClientScopes" : [ "profile", "email", "roles", "patient/AllergyIntolerance.read" ],
-      "createdDate" : 1748126709622,
-      "lastUpdatedDate" : 1748126709631
+      "createdDate" : 1748124796565,
+      "lastUpdatedDate" : 1748124796574
     } ],
     "notBefore" : 1737331440,
     "groups" : [ ]
@@ -593,7 +593,6 @@
     "implicitFlowEnabled" : false,
     "directAccessGrantsEnabled" : false,
     "serviceAccountsEnabled" : true,
-    "authorizationServicesEnabled" : true,
     "publicClient" : false,
     "frontchannelLogout" : true,
     "protocol" : "openid-connect",
@@ -602,9 +601,7 @@
       "oidc.ciba.grant.enabled" : "false",
       "client.secret.creation.time" : "1735531504",
       "backchannel.logout.session.required" : "true",
-      "standard.token.exchange.enabled" : "false",
       "login_theme" : "keycloak.v2",
-      "frontchannel.logout.session.required" : "true",
       "post.logout.redirect.uris" : "+",
       "display.on.consent.screen" : "false",
       "oauth2.device.authorization.grant.enabled" : "false",
@@ -673,75 +670,8 @@
         "jsonType.label" : "String"
       }
     } ],
-    "defaultClientScopes" : [ "service_account", "web-origins", "acr", "profile", "roles", "basic", "email" ],
-    "optionalClientScopes" : [ "system/Patient.write", "address", "system/Patient.read", "phone", "organization", "offline_access", "patient/AllergyIntolerance.read", "microprofile-jwt" ],
-    "authorizationSettings" : {
-      "allowRemoteResourceManagement" : true,
-      "policyEnforcementMode" : "ENFORCING",
-      "resources" : [ {
-        "name" : "Default Resource",
-        "type" : "urn:oauth2-proxy:resources:default",
-        "ownerManagedAccess" : false,
-        "attributes" : { },
-        "uris" : [ "/*" ]
-      }, {
-        "name" : "Patient",
-        "ownerManagedAccess" : false,
-        "displayName" : "Patient",
-        "attributes" : { },
-        "uris" : [ "fhir/Patient" ],
-        "scopes" : [ {
-          "name" : "Patient.read"
-        } ],
-        "icon_uri" : ""
-      } ],
-      "policies" : [ {
-        "name" : "Default Policy",
-        "description" : "A policy that grants access only for users within this realm",
-        "type" : "js",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "AFFIRMATIVE",
-        "config" : {
-          "code" : "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
-        }
-      }, {
-        "name" : "patient-read-client-scope-policy",
-        "description" : "",
-        "type" : "client-scope",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "UNANIMOUS",
-        "config" : {
-          "clientScopes" : "[{\"id\":\"system/Patient.read\",\"required\":false}]"
-        }
-      }, {
-        "name" : "Default Permission",
-        "description" : "A permission that applies to the default resource type",
-        "type" : "resource",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "UNANIMOUS",
-        "config" : {
-          "defaultResourceType" : "urn:oauth2-proxy:resources:default",
-          "applyPolicies" : "[\"Default Policy\"]"
-        }
-      }, {
-        "name" : "patient-read-scope-permission",
-        "description" : "",
-        "type" : "scope",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "UNANIMOUS",
-        "config" : {
-          "resources" : "[\"Patient\"]",
-          "scopes" : "[\"Patient.read\"]",
-          "applyPolicies" : "[\"patient-read-client-scope-policy\"]"
-        }
-      } ],
-      "scopes" : [ {
-        "name" : "Patient.read",
-        "iconUri" : "",
-        "displayName" : "Patient.read"
-      } ],
-      "decisionStrategy" : "UNANIMOUS"
-    }
+    "defaultClientScopes" : [ "web-origins", "acr", "profile", "roles", "basic", "email" ],
+    "optionalClientScopes" : [ "address", "system/Patient.read", "phone", "organization", "offline_access", "patient/AllergyIntolerance.read", "microprofile-jwt" ]
   }, {
     "id" : "d134aaea-8198-4e8a-955f-65d99917c7e8",
     "clientId" : "realm-management",
@@ -1230,17 +1160,6 @@
       }
     } ]
   }, {
-    "id" : "d0cc0917-f659-4e6b-a767-2789f225d9d6",
-    "name" : "system/Patient.write",
-    "description" : "Permission to write all patient records accessible to the given client using its own credentials.",
-    "protocol" : "openid-connect",
-    "attributes" : {
-      "include.in.token.scope" : "true",
-      "display.on.consent.screen" : "false",
-      "gui.order" : "",
-      "consent.screen.text" : ""
-    }
-  }, {
     "id" : "38784840-5e5d-42dd-bfa1-3426f5154512",
     "name" : "email",
     "description" : "OpenID Connect built-in scope: email",
@@ -1408,9 +1327,8 @@
       "consentRequired" : false,
       "config" : {
         "user.session.note" : "client_id",
-        "introspection.token.claim" : "true",
-        "userinfo.token.claim" : "true",
         "id.token.claim" : "true",
+        "introspection.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "client_id",
         "jsonType.label" : "String"
@@ -1423,9 +1341,8 @@
       "consentRequired" : false,
       "config" : {
         "user.session.note" : "clientAddress",
-        "introspection.token.claim" : "true",
-        "userinfo.token.claim" : "true",
         "id.token.claim" : "true",
+        "introspection.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "clientAddress",
         "jsonType.label" : "String"
@@ -1438,9 +1355,8 @@
       "consentRequired" : false,
       "config" : {
         "user.session.note" : "clientHost",
-        "introspection.token.claim" : "true",
-        "userinfo.token.claim" : "true",
         "id.token.claim" : "true",
+        "introspection.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "clientHost",
         "jsonType.label" : "String"
@@ -1533,7 +1449,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-usermodel-attribute-mapper", "saml-role-list-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-property-mapper", "saml-user-attribute-mapper", "oidc-address-mapper", "saml-user-property-mapper", "oidc-full-name-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-usermodel-property-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper", "saml-role-list-mapper", "oidc-address-mapper", "oidc-full-name-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-attribute-mapper" ]
       }
     }, {
       "id" : "c00eca02-8ce1-424f-9bd8-12dca08eec5a",
@@ -1567,7 +1483,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-property-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "saml-user-attribute-mapper", "oidc-address-mapper", "oidc-usermodel-property-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-usermodel-property-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-address-mapper", "saml-user-attribute-mapper", "oidc-full-name-mapper", "saml-role-list-mapper", "saml-user-property-mapper", "oidc-usermodel-attribute-mapper" ]
       }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {

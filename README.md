@@ -159,7 +159,7 @@ docker volume rm backend_postgres_data
 docker volume rm backend_cache
 ```
 
-### Call the FHIR API
+### Call the HAPI FHIR API
 
 ##### OAuth 2.0 Client Credentials Grant
 
@@ -204,7 +204,7 @@ curl -X POST "https://keycloak.au.localhost:8443/realms/hapi-fhir-dev/protocol/o
 
 #### Call the API
 
-To call the API, an application must pass the access token as a Bearer token in the Authorization header of your HTTP request.
+To call the API, an application must pass the access token as a Bearer token in the Authorization header of the HTTP request.
 
 For example:
 
