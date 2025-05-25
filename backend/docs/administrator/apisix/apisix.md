@@ -4,16 +4,16 @@
 
 ### Fine-grained Authorisation
 
-You must allow the 'Authorization' capability config setting in order to enable support for fine-grained authorization.
+You must allow the 'Authorization' capability config setting in order to enable support for fine-grained authorisation.
 
 <p align="center">
-  <img src="./keycloak-capability-config-authorization.png" alt="Create Admin user"/>
+  <img src="./keycloak-capability-config-authorization.png" alt="Allow the 'Authorization' capability config setting"/>
 </p>
 
 When you enable the 'Authorization' capability config setting, Keycloak will create a Default Policy:
 
 <p align="center">
-  <img src="./keycloak-authorization-server-default-policy.png" alt="Create Admin user"/>
+  <img src="./keycloak-authorization-server-default-policy.png" alt="Authorization Server Default policy"/>
 </p>
 
 You need to **delete** the Default Policy if you want to 'export' then 'import' your realm settings.
@@ -22,7 +22,7 @@ See: [Keycloak Issues - ERROR: Script upload is disabled](https://github.com/key
 
 ## ❯ APISIX
 
-### AuthZ Keycloak
+### AuthZ Keycloak plugin
 
 The `authz-keycloak` plugin enables APISIX to leverage the fine-grained authorisation policies and access control mechanisms supported by Keycloak.
 
@@ -30,11 +30,11 @@ See: [Keycloak - Authorization Services Guide](https://www.keycloak.org/docs/lat
 
 #### Static permissions
 
-The `authz-keycloak` plugin can be configured to support different scenarios. 
+The `authz-keycloak` plugin can be configured to support different authorisation scenarios.
 
 For example, you can configure Keycloak to use scope-based permissions associated with a client scope policy and configure the `authz-keycloak` plugin to use static permissions.
 
-#### Create Authorisation Scope in Keycloak
+#### Create an Authorisation Scope in Keycloak
 
 Create an Authorisation Scope (Patient.read) in Keycloak:
 
@@ -42,7 +42,7 @@ Create an Authorisation Scope (Patient.read) in Keycloak:
   <img src="./keycloak-create-authorization-scope.png" alt="Create Authorization scope"/>
 </p>
 
-#### Create Resource in Keycloak
+#### Create a Resource in Keycloak
 
 Create a Resource (Patient) in Keycloak:
 
@@ -50,7 +50,7 @@ Create a Resource (Patient) in Keycloak:
   <img src="./keycloak-create-resource.png" alt="Create Resource"/>
 </p>
 
-#### Create Client Scope in Keycloak
+#### Create a Client Scope in Keycloak
 
 Create a Client Scope (system/Patient.read) in Keycloak:
 
@@ -58,7 +58,7 @@ Create a Client Scope (system/Patient.read) in Keycloak:
   <img src="./keycloak-create-client-scope.png" alt="Create Client scope"/>
 </p>
 
-#### Create Policy in Keycloak
+#### Create a Client Scope Policy in Keycloak
 
 Create a Client Scope Policy (patient-read-client-scope-policy) in Keycloak:
 
@@ -66,7 +66,7 @@ Create a Client Scope Policy (patient-read-client-scope-policy) in Keycloak:
   <img src="./keycloak-create-client-scope-policy.png" alt="Create Client Scope policy"/>
 </p>
 
-#### Create Permission in Keycloak
+#### Create a Scope-based Permission in Keycloak
 
 Create a Scope-based Permission (patient-read-scope-permission) in Keycloak:
 
