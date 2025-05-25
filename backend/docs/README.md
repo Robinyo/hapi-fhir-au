@@ -1,7 +1,7 @@
 <h1 align="center">Documentation</h1>
 
 * Administrator Documentation
-  * [Working with APISIX](./apisix/apisix.md)
+  * [Working with APISIX](./administrator/apisix/apisix.md)
   * [Working with Docker](./administrator/docker.md)
   * [Working with Keycloak](./administrator/keycloak/keycloak.md)
   * [Working with PostgreSQL](./administrator/postgres.md)
