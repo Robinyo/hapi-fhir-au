@@ -516,10 +516,14 @@ docker volume ls
 
 ### APISIX
 
+* APISIX: [Documentation](https://apisix.apache.org/docs/)
 * APISIX docs: [Deployment modes](https://apisix.apache.org/docs/apisix/deployment-modes/#standalone)
 * APISIX docs: [SSL Protocol](https://apisix.apache.org/docs/apisix/ssl-protocol/)
 * APISIX docs: [Certificate](https://apisix.apache.org/docs/apisix/certificate/)
-* APISIX docs: [Plugins - OpenID Connect](https://apisix.apache.org/docs/apisix/plugins/openid-connect/)
+* APISIX docs: [openid-connect plugin](https://apisix.apache.org/docs/apisix/plugins/openid-connect/)
+* APISIX docs: [authz-keycloak plugin](https://apisix.apache.org/docs/apisix/plugins/authz-keycloak/)
+* API7 docs: [authz-keycloak plugin](https://docs.api7.ai/hub/authz-keycloak)
+* APISIX docs: [Code Samples](https://apisix.apache.org/docs/general/code-samples/)
 
 ### Nginx
 
@@ -544,7 +548,14 @@ docker volume ls
 
 ### Clinical Information Systems
 
+#### Oracle Health Millennium Platform
+
 * Oracle Health Millennium Platform: [Authorization Framework](https://docs.oracle.com/en/industries/health/millennium-platform-apis/fhir-authorization-framework/#authorization)
+* Oracle Health Millennium Platform: [FHIR R4 APIs](https://docs.oracle.com/en/industries/health/millennium-platform-apis/mfrap/rest-endpoints.html)
+
+#### Smile Digital Health
+* Smile CDR docs: [SMART on FHIR - Introduction](https://smilecdr.com/docs/smart/smart_on_fhir_introduction.html)
+* Smile CDR docs: [SMART on FHIR - Supported Scopes](https://smilecdr.com/docs/smart/smart_on_fhir_smile_cdr.html#smile-cdr-supported-smart-scopes)
 
 ### okta
 
