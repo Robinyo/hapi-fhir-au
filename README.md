@@ -554,6 +554,7 @@ docker volume ls
 * Oracle Health Millennium Platform: [FHIR R4 APIs](https://docs.oracle.com/en/industries/health/millennium-platform-apis/mfrap/rest-endpoints.html)
 
 #### Smile Digital Health
+
 * Smile CDR docs: [SMART on FHIR - Introduction](https://smilecdr.com/docs/smart/smart_on_fhir_introduction.html)
 * Smile CDR docs: [SMART on FHIR - Supported Scopes](https://smilecdr.com/docs/smart/smart_on_fhir_smile_cdr.html#smile-cdr-supported-smart-scopes)
 
