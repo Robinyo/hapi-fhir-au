@@ -3,3 +3,4 @@ certs/*.pem
 azurecredentialcache/
 sessions/
 pgadmin_data/
+storage/
