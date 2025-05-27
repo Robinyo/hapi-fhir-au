@@ -67,7 +67,6 @@ services:
     volumes:
       - '${PWD}/certs/cert.pem:/certs/server.cert'
       - '${PWD}/certs/key.pem:/certs/server.key'
-      # - '${PWD}/pgadmin_data:/var/lib/pgadmin'
       - '${PWD}/pgadmin_data:/var/lib/pgadmin'
     environment:
       PGADMIN_ENABLE_TLS: true
