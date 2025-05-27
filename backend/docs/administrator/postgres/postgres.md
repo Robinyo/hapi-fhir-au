@@ -6,20 +6,42 @@ You can use [pgAdmin](https://www.pgadmin.org/) to manage PostrgeSQL.
 
 Navigate to the pgAdmin Welcome page: https://hapi-fhir.au.localhost:5443
 
-Login using the PGADMIN_DEFAULT_EMAIL (admin@hapi-fhir.au) and PGADMIN_DEFAULT_PASSWORD (secret) credentials:
+<p align="center">
+  <img src="./pgadmin-login.png" alt="Login to pgAdmin"/>
+</p>
 
-...
+Login using the PGADMIN_DEFAULT_EMAIL (admin@hapi-fhir.au) and PGADMIN_DEFAULT_PASSWORD (secret) credentials.
 
-Create Connection Wizard - General Tab:
+You should see something like:
 
-...
+<p align="center">
+  <img src="./pgadmin-welcome-page.png" alt="Welcome Page"/>
+</p>
 
-Create Connection Wizard - Connection Tab:
+In the 'Quick Links' click on 'Add New Server':
 
-...
+<p align="center">
+  <img src="./pgadmin-register-server-general-tab.png" alt="Register Server - General Tab"/>
+</p>
+
+Enter the Name (PostgreSQL) and then click on the 'Connection' tab:
+
+<p align="center">
+  <img src="./pgadmin-register-server-connection-tab.png" alt="Register Server - Connection Tab"/>
+</p>
 
 **Note:** The 'Host name / address' field must match the value (e.g., postgres) specified in the project's docker-compose.yml.
 
-Browser - Schemas:
+You can use the Object Explorer to browse the database:
 
-...
+<p align="center">
+  <img src="./pgadmin-object-explorer.png" alt="Object Explorer"/>
+</p>
+
+![divider](./../../divider.png)
+
+## ❯ References
+
+### pgAdmin
+
+* pgAdmin: [Documentation](https://www.pgadmin.org/docs/pgadmin4/latest/index.html)
