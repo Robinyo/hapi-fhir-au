@@ -45,12 +45,12 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
-      # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_PASSWORD: /run/secrets/pg_password
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # POSTGRES_PASSWORD: /run/secrets/pg_password
     env_file:
       - ./.env
-    secrets:
-      - pg_password
+    # secrets:
+    #   - pg_password
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -117,14 +117,14 @@ services:
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
-      # KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KC_DB_PASSWORD: /run/secrets/pg_password
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      # KC_DB_PASSWORD: /run/secrets/pg_password
 
       KC_HEALTH_ENABLED: true
     env_file:
       - ./.env
-    secrets:
-      - pg_password
+    # secrets:
+    #   - pg_password
     # Make sure the certificate and the key (the *.pem files) have the correct permissions -> e.g., sudo chmod 655 *.pem
     volumes:
       - '${PWD}/services/keycloak/scripts/health-check.sh:/opt/keycloak/health-check.sh'
@@ -150,13 +150,14 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
-      SPRING_DATASOURCE_PASSWORD: /run/secrets/pg_password
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      # SPRING_DATASOURCE_PASSWORD: /run/secrets/pg_password
       SPRING_DATASOURCE_DRIVERCLASSNAME: org.postgresql.Driver
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
     env_file:
       - ./.env
-    secrets:
-      - pg_password
+    # secrets:
+    #   - pg_password
     configs:
       - source: hapi
         target: /app/config/application.yaml
@@ -168,9 +169,9 @@ services:
     networks:
       - hapi_fhir_network
 
-secrets:
-  pg_password:
-    file: ./secrets/pg_password.txt
+# secrets:
+#   pg_password:
+#     file: ./secrets/pg_password.txt
 
 networks:
   hapi_fhir_network:
