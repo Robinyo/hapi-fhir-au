@@ -18,13 +18,18 @@ upstreams:
     type: roundrobin
     nodes:
       "hapi-fhir:8080": 1
+  - name: pgadmin
+    id: 2
+    type: roundrobin
+    nodes:
+      "pgadmin:5443": 1
 
 routes:
   - name: hapi-fhir-web-testpage-overlay
     uri: /*
     methods: [ "GET", "HEAD" ]
-    plugin_config_id: 1
-    upstream_id: 1
+    # plugin_config_id: 1
+    upstream_id: 2
 
   - name: hapi-fhir
     uri: /fhir
@@ -63,6 +68,10 @@ routes:
     uri: /fhir/Patient*
     methods: [ "POST", "PUT", "PATCH", "DELETE" ]
     upstream_id: 1
+
+  - name: pgadmin
+    uri: /login*
+    upstream_id: 2
 
 ssls:
   -

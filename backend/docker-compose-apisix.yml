@@ -56,6 +56,28 @@ services:
     networks:
       - hapi_fhir_network
 
+  pgadmin:
+    container_name: pgadmin
+    build:
+      context: ./services/pgadmin
+      dockerfile: Dockerfile
+    ports:
+      - 5080:80
+      - 5443:443
+    volumes:
+      - '${PWD}/certs/cert.pem:/certs/server.cert'
+      - '${PWD}/certs/key.pem:/certs/server.key'
+      - '${PWD}:/var/lib/pgadmin'
+    environment:
+      PGADMIN_ENABLE_TLS: true
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - hapi_fhir_network
+
   keycloak.au.localhost:
     container_name: keycloak.au.localhost
     build:
@@ -79,7 +101,7 @@ services:
       retries: 5
       timeout: 5s
     ports:
-      - 8443:8443
+      - 8443:8080
       - 9000:9000
     environment:
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}

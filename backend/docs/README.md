@@ -4,7 +4,7 @@
   * [Working with APISIX](./administrator/apisix/apisix.md)
   * [Working with Docker](./administrator/docker.md)
   * [Working with Keycloak](./administrator/keycloak/keycloak.md)
-  * [Working with PostgreSQL](./administrator/postgres.md)
+  * [Working with PostgreSQL](./administrator/postgres/postgres.md)
 * Developer Documentation
   * [mkcert](./developer/mkcert.md)
   * [Let's Encrypt](./developer/lets-encrypt.md)
