@@ -101,7 +101,7 @@ services:
       retries: 5
       timeout: 5s
     ports:
-      - 8443:8080
+      - 8443:8443
       - 9000:9000
     environment:
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}

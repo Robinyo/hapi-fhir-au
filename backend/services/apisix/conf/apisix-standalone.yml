@@ -23,8 +23,8 @@ routes:
   - name: hapi-fhir-web-testpage-overlay
     uri: /*
     methods: [ "GET", "HEAD" ]
-    # plugin_config_id: 1
-    upstream_id: 2
+    plugin_config_id: 1
+    upstream_id: 1
 
   - name: hapi-fhir
     uri: /fhir
