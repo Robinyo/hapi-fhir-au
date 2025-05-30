@@ -436,6 +436,7 @@ docker compose -f docker-compose-nginx.yml build
 Misc:
 
 ```
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_name_or_id>
 docker container ps -a
 docker compose -f docker-compose-apisix.yml ps
 docker compose -f docker-compose-nginx.yml ps
