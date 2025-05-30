@@ -1,4 +1,5 @@
 certs/*.pem
+certs/*.p12
 
 azurecredentialcache/
 sessions/
