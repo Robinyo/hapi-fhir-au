@@ -42,7 +42,7 @@ mkcert -key-file keycloak-key.pem -cert-file keycloak-cert.pem keycloak.au.local
 Move the files into the `\backend\certs` directory and set the file permissions:
 
 ```
-sudo chmod 655 *.pem
+sudo chmod 600 *.pem
 ```
 
 ### /etc/hosts
@@ -61,6 +61,14 @@ Add the hostnames, `hapi-fhir.au.localhost` and `keycloak.au.localhost`:
 
 **Note**: Remember that `mkcert` is meant for development purposes, not production, so it should not be used on end 
 users' machines, and that you should not export or share `rootCA-key.pem`.
+
+### PKCS12 Keystore
+
+You can use `openssl` to create a PKCS12 keystore:
+
+```
+openssl pkcs12 -export -in cert.pem -inkey key.pem -out keystore.p12 -name tomcat -password pass:secret
+```
 
 ![divider](.././divider.png)
 

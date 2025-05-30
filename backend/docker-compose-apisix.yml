@@ -1,6 +1,6 @@
 services:
 
-  # Make sure the certificates and the keys (the *.pem files) have the correct permissions -> e.g., sudo chmod 600 *.pem
+  # Make sure your certificates and keys (the *.pem files in the ./certs directory) have the correct permissions -> i.e., sudo chmod 600 *.pem
 
   apisix:
     container_name: apisix
@@ -155,6 +155,12 @@ services:
     ports:
       - 8080:8080
     environment:
+      SERVER_SSL_KEY_STORE_TYPE: PKCS12
+      SERVER_SSL_KEY_STORE: file:/keystore/keystore.p12
+      SERVER_SSL_KEY_STORE_PASSWORD: secret
+      SERVER_SSL_KEY_ALIAS: tomcat
+      # SERVER_SSL_ENABLED: true
+      SERVER_SSL_ENABLED: false
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
@@ -165,6 +171,8 @@ services:
       - ./.env
     # secrets:
     #   - pg_password
+    volumes:
+      - '${PWD}/certs/keystore.p12:/keystore/keystore.p12'
     configs:
       - source: hapi
         target: /app/config/application.yaml
