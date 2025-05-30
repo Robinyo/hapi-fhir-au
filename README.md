@@ -9,11 +9,15 @@
 </p>
 
 <p align="center">
-  The goal of this project is to demonstrate secure access to FHIR resources using OpenID Connect for authentication and OAuth 2.0 (i.e., SMART on FHIR) for authorisation. <br>
+  The goal of this project is to demonstrate secure access to FHIR resources. <br>
 </p>
 
 <p align="center">
   SSL/TLS is used to encrypt <b>data in transit</b> and AES-256 is used to encrypt <b>data at rest</b>.
+</p>
+
+<p align="center">
+  OpenID Connect is used for authentication and OAuth 2.0 (e.g., SMART on FHIR, RBAC) for authorisation. <br>
 </p>
 
 <p align="center">
