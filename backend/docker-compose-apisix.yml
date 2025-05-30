@@ -1,5 +1,7 @@
 services:
 
+  # Make sure the certificates and the keys (the *.pem files) have the correct permissions -> e.g., sudo chmod 600 *.pem
+
   apisix:
     container_name: apisix
     build:
@@ -34,6 +36,10 @@ services:
       context: ./services/postgres
       dockerfile: Dockerfile
     restart: unless-stopped
+    command: >
+      -c ssl=on 
+      -c ssl_cert_file=/var/lib/postgresql/server.crt 
+      -c ssl_key_file=/var/lib/postgresql/server.key
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       start_period: 10s
@@ -52,6 +58,8 @@ services:
     # secrets:
     #   - pg_password
     volumes:
+      - '${PWD}/certs/cert.pem:/var/lib/postgresql/server.crt'
+      - '${PWD}/certs/key.pem:/var/lib/postgresql/server.key'
       - postgres_data:/var/lib/postgresql/data
     networks:
       - hapi_fhir_network
@@ -125,7 +133,6 @@ services:
       - ./.env
     # secrets:
     #   - pg_password
-    # Make sure the certificate and the key (the *.pem files) have the correct permissions -> e.g., sudo chmod 655 *.pem
     volumes:
       - '${PWD}/services/keycloak/scripts/health-check.sh:/opt/keycloak/health-check.sh'
       - '${PWD}/certs/keycloak-cert.pem:/etc/keycloak/certs/cert.pem'

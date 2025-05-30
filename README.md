@@ -480,6 +480,7 @@ docker volume ls
 
 * HL7: [SMART App Launch](https://build.fhir.org/ig/HL7/smart-app-launch/)
 * SMART Health IT: [SMART on FHIR](https://docs.smarthealthit.org/)
+* Google Group: [SMART on FHIR](https://groups.google.com/g/smart-on-fhir)
 
 #### SMART on FHIR - Standalone Launch
 
@@ -563,3 +564,8 @@ docker volume ls
 * okta Developer blog: [Add Auth to Any App with OAuth2 Proxy](https://developer.okta.com/blog/2022/07/14/add-auth-to-any-app-with-oauth2-proxy)
 * okta forum: [SMART on FHIR wildcard scopes](https://devforum.okta.com/t/creating-wildcard-custom-scopes-for-oauth2/27418)
 * GitHub: [Okta SMART on FHIR Setup Guide - scopes](https://github.com/oktadev/okta-smartfhir-docs/blob/original-v1-documentation/SETUP.md#scopes)
+
+### Miscellaneous 
+
+* ADHA: [Strategies and plans](https://www.digitalhealth.gov.au/about-us/strategies-and-plans)
+* ADHA: [Digital Health Standards Catalogue](https://developer.digitalhealth.gov.au/standards/search?keywords=&category=All&organisation=All)
