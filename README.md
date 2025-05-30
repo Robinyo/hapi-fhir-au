@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  OpenID Connect is used for authentication and OAuth 2.0 (e.g., SMART on FHIR, RBAC) for authorisation. <br>
+  OpenID Connect is used for authentication and OAuth 2.0 (e.g., SMART on FHIR) for authorisation. <br>
 </p>
 
 <p align="center">
