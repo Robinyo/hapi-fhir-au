@@ -2,14 +2,18 @@
   <img src="./logo.svg" alt="HAPI FHIR AU with Auth Starter Project" width="400"/>
 </p>
 
-<h1 align="center">HAPI FHIR AU with Auth Starter Project</h1>
+<h1 align="center">HAPI FHIR AU Starter Project</h1>
 
 <p align="center">
-  <b>A sample HAPI FHIR with Auth Starter Project.</b> <br>
+  <b>A HAPI FHIR Starter Project with support for AuthN and AuthZ.</b> <br>
 </p>
 
 <p align="center">
   The goal of this project is to demonstrate secure access to FHIR resources using OpenID Connect for authentication and OAuth 2.0 (i.e., SMART on FHIR) for authorisation. <br>
+</p>
+
+<p align="center">
+  SSL/TLS is used to encrypt **data in transit** and AES-256 is used to encrypt **data at rest**.
 </p>
 
 <p align="center">
