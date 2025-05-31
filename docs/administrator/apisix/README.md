@@ -32,13 +32,11 @@ See: [Keycloak - Authorization Services Guide](https://www.keycloak.org/docs/lat
 
 The `authz-keycloak` plugin can be configured to support different authorisation scenarios.
 
-You can configure Keycloak to use scope-based permissions associated with a client scope policy and configure the `authz-keycloak` plugin to use static permissions.
+For example, you can configure Keycloak to use scope-based permissions associated with a client scope policy and configure the `authz-keycloak` plugin to use static permissions:
 
-For example:
-
-- Resource: Patient
-- Authorisation Scope: Patient.read
-- Client Scope: system/Patient.read
+- Resource: **Patient**
+- Authorisation Scope: **Patient.read**
+- Client Scope: **system/Patient.read**
 - Client Scope Policy: patient-read-client-scope-policy
 - Scope-based Permission: patient-read-scope-permission
 
@@ -46,11 +44,6 @@ For example:
   permissions: [ "Patient#Patient.read" ]
 ```
 
-Each entry in the 'permissions' attribute must be formatted as expected by the token endpoint's permission parameter.
-
-For example: "Resource#Authorisation Scope"
-
-See: [Obtaining permissions](https://www.keycloak.org/docs/latest/authorization_services/index.html#_service_obtaining_permissions)
 #### Create an Authorisation Scope in Keycloak
 
 Create an Authorisation Scope (Patient.read) in Keycloak:
@@ -115,6 +108,12 @@ Create a route as follows:
 ```
 
 See: [apisix-standalone.yml](https://github.com/Robinyo/hapi-fhir-au/blob/main/backend/services/apisix/conf/apisix-standalone.yml)
+
+Each entry in the 'permissions' attribute must be formatted as expected by the token endpoint's permission parameter.
+
+For example: "Resource#Authorisation Scope".
+
+See: [Keycloak - Authorization Services Guide: Obtaining permissions](https://www.keycloak.org/docs/latest/authorization_services/index.html#_service_obtaining_permissions)
 
 ### Call the HAPI FHIR API
 
