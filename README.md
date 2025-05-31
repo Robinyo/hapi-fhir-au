@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  SSL/TLS is used to encrypt <b>data in transit</b> and AES-256 is used to encrypt <b>data at rest</b>.
+  TLS is used to encrypt <b>data in transit</b> and AES-256 is used to encrypt <b>data at rest</b>.
 </p>
 
 <p align="center">
