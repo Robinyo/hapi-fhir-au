@@ -23,14 +23,11 @@ services:
     restart: unless-stopped
     ports:
       - 8080:8080
-      # - 6443:8443
     environment:
-      # SERVER_SSL_ENABLED: true
       SERVER_SSL_KEY_STORE_TYPE: PKCS12
       SERVER_SSL_KEY_STORE: file:/keystore/keystore.p12
       SERVER_SSL_KEY_STORE_PASSWORD: secret
       SERVER_SSL_KEY_ALIAS: tomcat
-      # SERVER_PORT: 8443
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
