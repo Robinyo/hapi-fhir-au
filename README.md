@@ -36,6 +36,7 @@
   * [Working with APISIX](./docs/administrator/apisix/README.md)
   * [Working with Docker](./docs/administrator/docker/README.md)
   * [Working with Keycloak](./docs/administrator/keycloak/README.md)
+  * [Working with HAPI FHIR](./docs/administrator/hapi-fhir/README.md)
   * [Working with PostgreSQL and pgAdmin](./docs/administrator/postgres/README.md)
   
 ![divider](./divider.png)
