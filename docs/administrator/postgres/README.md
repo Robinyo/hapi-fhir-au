@@ -74,7 +74,7 @@ services:
 
 ```
 
-**Note:** On Unix and MacOS systems the cert, key and keystore file permissions must disallow any access to world or group.
+**Note:** On Unix and MacOS systems the cert and key file permissions must disallow any access to world or group.
 
 For example:
 
