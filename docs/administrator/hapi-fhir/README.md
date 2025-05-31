@@ -22,12 +22,14 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - 8080:8080
+      - 6443:8443      
     environment:
+      SERVER_SSL_ENABLED: true
       SERVER_SSL_KEY_STORE_TYPE: PKCS12
       SERVER_SSL_KEY_STORE: file:/keystore/keystore.p12
       SERVER_SSL_KEY_STORE_PASSWORD: secret
       SERVER_SSL_KEY_ALIAS: tomcat
+      SERVER_PORT: 8443
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
@@ -48,34 +50,6 @@ services:
         condition: service_healthy
     networks:
       - hapi_fhir_network
-```
-
-We can check that the connections to PostgreSQL are secure by running the following query:
-
-```
-select pg_ssl.pid, pg_ssl.ssl, pg_ssl.version,
-       pg_sa.backend_type, pg_sa.usename, pg_sa.client_addr
-       from pg_stat_ssl pg_ssl
-       join pg_stat_activity pg_sa
-       on pg_ssl.pid = pg_sa.pid;
-```
-
-In pgadmin:
-
-<p align="center">
-  <img src="./pgdmin-checking-connections.png" alt="pgAdmin checking connections for TLS"/>
-</p>
-
-We can obtain HAPI FHIR's IP Address using the following command:
-
-```
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' hapi-fhir
-```
-
-You should see something like:
-
-```
-172.18.0.6
 ```
 
 ## ❯ References

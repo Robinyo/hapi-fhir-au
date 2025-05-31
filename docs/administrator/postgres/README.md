@@ -82,6 +82,34 @@ For example:
 sudo chmod 600 *.pem
 ```
 
+We can check that the connections to PostgreSQL are secure by running the following query:
+
+```
+select pg_ssl.pid, pg_ssl.ssl, pg_ssl.version,
+       pg_sa.backend_type, pg_sa.usename, pg_sa.client_addr
+       from pg_stat_ssl pg_ssl
+       join pg_stat_activity pg_sa
+       on pg_ssl.pid = pg_sa.pid;
+```
+
+In pgadmin:
+
+<p align="center">
+  <img src="./pgdmin-checking-connections.png" alt="pgAdmin checking connections for TLS"/>
+</p>
+
+We can obtain HAPI FHIR's IP Address using the following command:
+
+```
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' hapi-fhir
+```
+
+You should see something like:
+
+```
+172.18.0.6
+```
+
 ## ❯ pgAdmin
 
 You can use [pgAdmin](https://www.pgadmin.org/) to manage PostrgeSQL.
