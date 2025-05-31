@@ -378,39 +378,3 @@ You should see something like:
 <p align="center">
   <img src="./keycloak-account-welcome-page.png" alt="Keycloak Account Console Welcome page"/>
 </p>
-
-### Miscellaneous
-
-Check the logs:
-
-```
-docker logs --tail 100 apisix
-docker logs --tail 100 oauth2-proxy
-docker logs --tail 100 keycloak
-```
-
-Clean and build:
-
-```
-docker system prune
-
-# APISIX
-docker compose -f docker-compose-apisix.yml build
-
-# OR
-
-# Nginx
-docker compose -f docker-compose-nginx.yml build
-```
-
-Misc:
-
-```
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_name_or_id>
-docker container ps -a
-docker compose -f docker-compose-apisix.yml ps
-docker compose -f docker-compose-nginx.yml ps
-docker container ls
-docker image ls
-docker volume ls
-```

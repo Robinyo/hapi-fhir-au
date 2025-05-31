@@ -51,7 +51,10 @@ For example:
 ```
 docker container logs postgres
 docker container logs pgadmin
-docker container logs identity-server
+
+docker logs --tail 100 apisix
+docker logs --tail 100 oauth2-proxy
+docker logs --tail 100 keycloak
 ```
 
 To start a shell session inside your container that you can interact with through your terminal:
@@ -103,4 +106,30 @@ Where is your image? It’s in your machine’s local Docker image registry:
 
 ```
 docker image ls
+```
+
+Clean and build:
+
+```
+docker system prune
+
+# APISIX
+docker compose -f docker-compose-apisix.yml build
+
+# OR
+
+# Nginx
+docker compose -f docker-compose-nginx.yml build
+```
+
+Misc:
+
+```
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_name_or_id>
+docker container ps -a
+docker compose -f docker-compose-apisix.yml ps
+docker compose -f docker-compose-nginx.yml ps
+docker container ls
+docker image ls
+docker volume ls
 ```

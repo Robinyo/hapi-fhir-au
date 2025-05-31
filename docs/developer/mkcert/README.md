@@ -74,8 +74,6 @@ Add the hostnames, `hapi-fhir.au.localhost` and `keycloak.au.localhost`:
 **Note**: Remember that `mkcert` is meant for development purposes, not production, so it should not be used on end 
 users' machines, and that you should not export or share `rootCA-key.pem`.
 
-![divider](../../divider.png)
-
 ## ❯ References
 
 * GitHub: [mkcert](https://github.com/FiloSottile/mkcert)

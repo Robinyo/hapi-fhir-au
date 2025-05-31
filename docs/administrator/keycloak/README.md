@@ -84,8 +84,6 @@ For example:
       - '${PWD}:/export'
 ```
 
-![divider](../../divider.png)
-
 ## ❯ References
 
 ### Keycloak

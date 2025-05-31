@@ -311,8 +311,6 @@ You should see something like:
 }             
 ```
 
-![divider](../../divider.png)
-
 ## ❯ References
 
 ### APISIX

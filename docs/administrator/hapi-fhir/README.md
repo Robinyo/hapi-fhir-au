@@ -81,8 +81,6 @@ You should see something like:
 172.18.0.6
 ```
 
-![divider](../../divider.png)
-
 ## ❯ References
 
 ### pgAdmin
