@@ -40,7 +40,7 @@ You can use the Object Explorer to browse the database:
   <img src="./pgadmin-object-explorer.png" alt="Object Explorer"/>
 </p>
 
-![divider](./../../divider.png)
+![divider](../../divider.png)
 
 ## ❯ References
 

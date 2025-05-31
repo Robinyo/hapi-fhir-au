@@ -415,5 +415,3 @@ docker container ls
 docker image ls
 docker volume ls
 ```
-
-![divider](../../divider.png)

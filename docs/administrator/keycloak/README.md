@@ -84,7 +84,7 @@ For example:
       - '${PWD}:/export'
 ```
 
-![divider](./../../divider.png)
+![divider](../../divider.png)
 
 ## ❯ References
 

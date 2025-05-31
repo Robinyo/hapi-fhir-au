@@ -312,7 +312,7 @@ You should see something like:
 }             
 ```
 
-![divider](./../../divider.png)
+![divider](../../divider.png)
 
 ## ❯ References
 
