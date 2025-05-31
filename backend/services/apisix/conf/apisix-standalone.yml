@@ -13,13 +13,18 @@ plugin_configs:
           secret: ${{COOKIE_SECRET}}
 
 upstreams:
-  - name: hapi-fhir-service
+  - name: http-hapi-fhir-service
     id: 1
     type: roundrobin
-    # scheme: https
     nodes:
       "hapi-fhir:8080": 1
-      # "hapi-fhir:6443": 1
+
+  - name: https-hapi-fhir-service
+    id: 2
+    type: roundrobin
+    scheme: https
+    nodes:
+      "hapi-fhir:6443": 1
 
 routes:
   - name: hapi-fhir-web-testpage-overlay
@@ -47,24 +52,23 @@ routes:
     upstream_id: 1
 
   - name: hapi-fhir-api
-    host: hapi-fhir.au.localhost
     uri: /fhir/Patient*
     methods: [ "GET" ]
     upstream_id: 1
     plugins:
       authz-keycloak:
         lazy_load_paths: false
-        # ssl_verify: false
+        ssl_verify: true
         client_id: ${{CLIENT_ID}}
         client_secret: ${{CLIENT_SECRET}}
         discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
         permissions: [ "Patient#Patient.read" ]
 
   - name: hapi-fhir-api
-    host: hapi-fhir.au.localhost
     uri: /fhir/Patient*
     methods: [ "POST", "PUT", "PATCH", "DELETE" ]
     upstream_id: 1
+
 
 ssls:
   -

@@ -53,6 +53,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       # POSTGRES_PASSWORD: /run/secrets/pg_password
+      PGSSLMODE: require
     env_file:
       - ./.env
     # secrets:
