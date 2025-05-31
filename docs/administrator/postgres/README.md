@@ -92,7 +92,7 @@ select pg_ssl.pid, pg_ssl.ssl, pg_ssl.version,
        on pg_ssl.pid = pg_sa.pid;
 ```
 
-In pgadmin:
+In pgAdmin:
 
 <p align="center">
   <img src="./pgdmin-checking-connections.png" alt="pgAdmin checking connections for TLS"/>
