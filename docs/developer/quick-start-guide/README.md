@@ -19,7 +19,7 @@ git clone git@github.com:Robinyo/hapi-fhir-au.git
 #### Local Development
 
 Follow the steps in the project's Developer Documentation to use
-[mkcert](../developer/mkcert/README.md) to create and install a local certificate authority and to generate the
+[mkcert](../mkcert/README.md) to create and install a local certificate authority and to generate the
 certificates required to enable TLS.
 
 ### Docker Compose
