@@ -1,4 +1,4 @@
-<h1 align="center">Working with PostgreSQL</h1>
+<h1 align="center">Working with PostgreSQL and pgAdmin</h1>
 
 ### Getting Started
 
