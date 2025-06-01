@@ -13,7 +13,7 @@ services:
       -c ssl_cert_file=/var/lib/postgresql/server.crt 
       -c ssl_key_file=/var/lib/postgresql/server.key
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -d $${HAPI_FHIR_DB} -U $${POSTGRES_USER}"]
       start_period: 10s
       interval: 30s
       retries: 5
@@ -21,10 +21,11 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_DB: ${HAPI_FHIR_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGSSLMODE: require
+      ENABLE_PG_TDE: 1
     env_file:
       - ./.env
     volumes:
@@ -71,7 +72,7 @@ services:
       SERVER_SSL_KEY_STORE_PASSWORD: secret
       SERVER_SSL_KEY_ALIAS: tomcat
       SERVER_PORT: 8443
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${HAPI_FHIR_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
@@ -86,8 +87,6 @@ services:
         target: /app/config/application.yaml
     depends_on:
       postgres:
-        condition: service_healthy
-      keycloak.au.localhost:
         condition: service_healthy
     networks:
       - hapi_fhir_network
@@ -104,4 +103,4 @@ volumes:
 
 configs:
   hapi:
-    file: ./hapi.application.yaml
+    file: ./hapi.application-enable-tls.yaml

@@ -6,7 +6,7 @@
 
 HAPI FHIR relies on the underlying web server for TLS encryption.
 
-All embedded web servers supported by Spring Boot can be configured to secure connections with TLS by using `server.ssl.*` properties.
+All embedded web servers supported by Spring Boot can be configured to secure connections with TLS (SSL) by using the `server.ssl.*` properties.
 
 HAPI FHIR also requires access to a keystore file containing the server certificate and private key. 
 
@@ -30,7 +30,7 @@ services:
       SERVER_SSL_KEY_STORE_PASSWORD: secret
       SERVER_SSL_KEY_ALIAS: tomcat
       SERVER_PORT: 8443
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${HAPI_FHIR_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
@@ -52,9 +52,12 @@ services:
       - hapi_fhir_network
 ```
 
+See: [docker-compose-hapi-fhir-enable-tls.yml](https://github.com/Robinyo/hapi-fhir-au/blob/main/backend/docker-compose-hapi-fhir-enable-tls.yml)
+
 ## ❯ References
 
-### pgAdmin
+### HAPI FHIR
 
-* PostgreSQL: [Documentation](https://www.postgresql.org/docs/current/index.html)
-* pgAdmin: [Documentation](https://www.pgadmin.org/docs/pgadmin4/latest/index.html)
+* HAPI FHIR: [Website](https://hapifhir.io/)
+* HAPI FHIR: [Documentation](https://hapifhir.io/hapi-fhir/docs/)
+* Google Group: [HAPI FHIR](https://groups.google.com/g/hapi-fhir)

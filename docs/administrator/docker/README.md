@@ -132,4 +132,7 @@ docker compose -f docker-compose-nginx.yml ps
 docker container ls
 docker image ls
 docker volume ls
+docker container prune
+docker volume prune
+docker network prune
 ```

@@ -1,0 +1,8 @@
+server_address: https://hapi-fhir.au.localhost:6443/fhir
+server:
+  max-http-request-header-size: 64KB
+hapi:
+  fhir:
+    server_address: https://hapi-fhir.au.localhost:6443/fhir
+    default_encoding: json
+    # dao_config.server_id_mode: UUID
