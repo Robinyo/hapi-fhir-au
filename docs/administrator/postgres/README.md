@@ -36,7 +36,9 @@ services:
 
 See: [docker-compose-apisix.yml](https://github.com/Robinyo/hapi-fhir-au/blob/main/backend/docker-compose-apisix.yml)
 
-### Enable TLS
+### Secure data in transit
+
+#### Enable TLS
 
 Support for encrypted connections is enabled by setting the `ssl` parameter to `on`. The server will listen for both 
 normal and secure connections on the same port. Connecting clients can be required to use encrypted connections by 

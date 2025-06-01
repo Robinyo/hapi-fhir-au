@@ -41,7 +41,7 @@ services:
       -c ssl_cert_file=/var/lib/postgresql/server.crt 
       -c ssl_key_file=/var/lib/postgresql/server.key
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $${HAPI_FHIR_DB} -U $${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       start_period: 10s
       interval: 30s
       retries: 5
@@ -49,21 +49,16 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: ${HAPI_FHIR_DB}
+      POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      # POSTGRES_PASSWORD: /run/secrets/pg_password
       PGSSLMODE: require
-      ENABLE_PG_TDE: 1
     env_file:
       - ./.env
-    # secrets:
-    #   - pg_password
     volumes:
       - '${PWD}/certs/cert.pem:/var/lib/postgresql/server.crt'
       - '${PWD}/certs/key.pem:/var/lib/postgresql/server.key'
       - postgres_data:/var/lib/postgresql/data
-      # - '${PWD}/services/postgres/initdb:/docker-entrypoint-initdb.d'
     networks:
       - hapi_fhir_network
 
@@ -126,16 +121,13 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
 
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/${HAPI_FHIR_DB}
+      KC_DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      # KC_DB_PASSWORD: /run/secrets/pg_password
 
       KC_HEALTH_ENABLED: true
     env_file:
       - ./.env
-    # secrets:
-    #   - pg_password
     volumes:
       - '${PWD}/services/keycloak/scripts/health-check.sh:/opt/keycloak/health-check.sh'
       - '${PWD}/certs/keycloak-cert.pem:/etc/keycloak/certs/cert.pem'
@@ -158,17 +150,14 @@ services:
     ports:
       - 8080:8080
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${HAPI_FHIR_DB}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-      # SPRING_DATASOURCE_PASSWORD: /run/secrets/pg_password
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
       SPRING_JPA_PROPERTIES_SEARCH_ENABLED: false
     env_file:
       - ./.env
-    # secrets:
-    #   - pg_password
     volumes:
       - '${PWD}/certs/keystore.p12:/keystore/keystore.p12'
     configs:
@@ -181,10 +170,6 @@ services:
         condition: service_healthy
     networks:
       - hapi_fhir_network
-
-# secrets:
-#   pg_password:
-#     file: ./secrets/pg_password.txt
 
 networks:
   hapi_fhir_network:

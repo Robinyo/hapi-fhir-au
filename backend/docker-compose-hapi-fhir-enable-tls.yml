@@ -1,0 +1,107 @@
+services:
+
+  # Make sure your certificates and keys (the *.pem files in the ./certs directory) have the correct permissions -> i.e., sudo chmod 600 *.pem
+
+  postgres:
+    container_name: postgres
+    build:
+      context: ./services/postgres
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: >
+      -c ssl=on 
+      -c ssl_cert_file=/var/lib/postgresql/server.crt 
+      -c ssl_key_file=/var/lib/postgresql/server.key
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      start_period: 10s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGSSLMODE: require
+    env_file:
+      - ./.env
+    volumes:
+      - '${PWD}/certs/cert.pem:/var/lib/postgresql/server.crt'
+      - '${PWD}/certs/key.pem:/var/lib/postgresql/server.key'
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hapi_fhir_network
+
+  pgadmin:
+    container_name: pgadmin
+    build:
+      context: ./services/pgadmin
+      dockerfile: Dockerfile
+    ports:
+      - 5080:80
+      - 5443:443
+    volumes:
+      - '${PWD}/certs/cert.pem:/certs/server.cert'
+      - '${PWD}/certs/key.pem:/certs/server.key'
+      - '${PWD}/pgadmin_data:/var/lib/pgadmin'
+    environment:
+      PGADMIN_ENABLE_TLS: true
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - hapi_fhir_network
+
+  hapi-fhir:
+    container_name: hapi-fhir
+    build:
+      context: ./services/hapi-fhir
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 6443:8443
+    environment:
+      SERVER_SSL_ENABLED: true
+      SERVER_SSL_KEY_STORE_TYPE: PKCS12
+      SERVER_SSL_KEY_STORE: file:/keystore/keystore.p12
+      SERVER_SSL_KEY_STORE_PASSWORD: secret
+      SERVER_SSL_KEY_ALIAS: tomcat
+      SERVER_PORT: 8443
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
+      SPRING_JPA_PROPERTIES_SEARCH_ENABLED: false
+    env_file:
+      - ./.env
+    volumes:
+      - '${PWD}/certs/keystore.p12:/keystore/keystore.p12'
+    configs:
+      - source: hapi
+        target: /app/config/application.yaml
+    depends_on:
+      postgres:
+        condition: service_healthy
+      keycloak.au.localhost:
+        condition: service_healthy
+    networks:
+      - hapi_fhir_network
+
+networks:
+  hapi_fhir_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  cache:
+    driver: local
+
+configs:
+  hapi:
+    file: ./hapi.application.yaml

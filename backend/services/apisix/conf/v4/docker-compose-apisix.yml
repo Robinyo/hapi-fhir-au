@@ -41,7 +41,7 @@ services:
       -c ssl_cert_file=/var/lib/postgresql/server.crt 
       -c ssl_key_file=/var/lib/postgresql/server.key
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $${HAPI_FHIR_DB} -U $${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       start_period: 10s
       interval: 30s
       retries: 5
@@ -49,12 +49,11 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: ${HAPI_FHIR_DB}
+      POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       # POSTGRES_PASSWORD: /run/secrets/pg_password
       PGSSLMODE: require
-      ENABLE_PG_TDE: 1
     env_file:
       - ./.env
     # secrets:
@@ -63,7 +62,6 @@ services:
       - '${PWD}/certs/cert.pem:/var/lib/postgresql/server.crt'
       - '${PWD}/certs/key.pem:/var/lib/postgresql/server.key'
       - postgres_data:/var/lib/postgresql/data
-      # - '${PWD}/services/postgres/initdb:/docker-entrypoint-initdb.d'
     networks:
       - hapi_fhir_network
 
@@ -126,7 +124,7 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
 
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/${HAPI_FHIR_DB}
+      KC_DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
       # KC_DB_PASSWORD: /run/secrets/pg_password
@@ -157,8 +155,17 @@ services:
     restart: unless-stopped
     ports:
       - 8080:8080
+      # - 6443:8443
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${HAPI_FHIR_DB}
+      # SERVER_SSL_ENABLED: true
+      SERVER_SSL_ENABLED: false
+      SERVER_SSL_KEY_STORE_TYPE: PKCS12
+      SERVER_SSL_KEY_STORE: file:/keystore/keystore.p12
+      SERVER_SSL_KEY_STORE_PASSWORD: secret
+      SERVER_SSL_KEY_ALIAS: tomcat
+      # SERVER_PORT: 8443
+      # https://github.com/hapifhir/hapi-fhir-jpaserver-starter/blob/master/README.md#example-using-docker-composeyml-for-docker-compose
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hapi-fhir}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       # SPRING_DATASOURCE_PASSWORD: /run/secrets/pg_password
