@@ -50,6 +50,13 @@ services:
         condition: service_healthy
     networks:
       - hapi_fhir_network
+
+  ...
+
+configs:
+  hapi:
+    file: ./hapi.application-enable-tls.yaml
+
 ```
 
 See: [docker-compose-hapi-fhir-enable-tls.yml](https://github.com/Robinyo/hapi-fhir-au/blob/main/backend/docker-compose-hapi-fhir-enable-tls.yml)

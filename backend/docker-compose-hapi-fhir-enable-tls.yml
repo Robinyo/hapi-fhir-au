@@ -98,8 +98,6 @@ networks:
 volumes:
   postgres_data:
     driver: local
-  cache:
-    driver: local
 
 configs:
   hapi:
