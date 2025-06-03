@@ -165,7 +165,8 @@ hapi-fhir=# \dx
 (2 rows)
 ```
 
-Configure a key provider. In this sample configuration intended for testing and development purpose, we use a local keyring provider:
+Configure a key provider:
+
 
 ```
 SELECT pg_tde_add_database_key_provider_file('file-vault', '/tmp/pg_tde_test_001_basic.per');
@@ -179,6 +180,9 @@ You should see something like:
                                      1
 (1 row)
 ```
+
+**Note:** This sample key provider configuration is intended for testing and development purpose only.
+
 
 Set a principal key:
 
