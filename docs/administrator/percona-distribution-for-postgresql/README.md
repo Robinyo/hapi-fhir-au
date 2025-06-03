@@ -116,7 +116,7 @@ You should see something like:
 
 #### Enable encryption
 
-The Percona Distribution for PostgreSQL includes the `pg_tde` extension that provides data encryption.
+The Docker image of the Percona Distribution for PostgreSQL includes the `pg_tde` extension that provides data encryption.
 
 ```
   postgres:
@@ -132,7 +132,7 @@ The Percona Distribution for PostgreSQL includes the `pg_tde` extension that pro
 
 ```
 
-See: [docker-compose-hapi-fhir-enable-tls.yml](https://github.com/Robinyo/hapi-fhir-au/blob/main/backend/docker-compose-hapi-fhir-enable-tls.yml)
+See: [docker-compose.yml](https://github.com/Robinyo/hapi-fhir-au/blob/main/backend/docker-compose-hapi-fhir-enable-tls.yml)
 
 `ENABLE_PG_TDE: 1` adds `pg_tde` to the `shared_preload_libraries` entry in the `postgresql.conf` file and enables the custom storage manager.
 
