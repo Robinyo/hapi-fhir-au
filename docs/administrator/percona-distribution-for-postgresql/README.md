@@ -150,6 +150,7 @@ psql -U admin -d hapi-fhir
 Create the `pg_tde` extension in the database you want to encrypt:
 
 ```
+\c hapi-fhir;
 CREATE EXTENSION pg_tde;
 ```
 
