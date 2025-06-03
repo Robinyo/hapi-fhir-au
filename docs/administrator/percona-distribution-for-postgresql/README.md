@@ -125,7 +125,6 @@ The Percona Distribution for PostgreSQL includes the `pg_tde` extension to provi
       context: ./services/postgres
       dockerfile: Dockerfile
     restart: unless-stopped
-    # -c config_file=/etc/postgresql/postgresql.conf
     command: >
       -c ssl=on 
       -c ssl_cert_file=/var/lib/postgresql/server.crt 
@@ -147,7 +146,7 @@ The Percona Distribution for PostgreSQL includes the `pg_tde` extension to provi
 
 See: [docker-compose-hapi-fhir-enable-tls.yml](https://github.com/Robinyo/hapi-fhir-au/blob/main/backend/docker-compose-hapi-fhir-enable-tls.yml)
 
-ENABLE_PG_TDE: 1 adds `pg_tde` to the `shared_preload_libraries` entry in the `postgresql.conf` file and enables the custom storage manager.
+`ENABLE_PG_TDE: 1` adds `pg_tde` to the `shared_preload_libraries` entry in the `postgresql.conf` file and enables the custom storage manager.
 
 Connect to the container:
 
