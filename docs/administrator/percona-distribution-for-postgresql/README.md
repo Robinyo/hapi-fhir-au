@@ -121,22 +121,9 @@ The Percona Distribution for PostgreSQL includes the `pg_tde` extension to provi
 ```
   postgres:
     container_name: postgres
-    build:
-      context: ./services/postgres
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    command: >
-      -c ssl=on 
-      -c ssl_cert_file=/var/lib/postgresql/server.crt 
-      -c ssl_key_file=/var/lib/postgresql/server.key
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $${HAPI_FHIR_DB} -U $${POSTGRES_USER}"]
-      start_period: 10s
-      interval: 30s
-      retries: 5
-      timeout: 5s
-    ports:
-      - 5432:5432
+    
+    ...
+
     environment:
       ENABLE_PG_TDE: 1
       
