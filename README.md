@@ -57,6 +57,8 @@
 * Rob Ferguson's blog: [Add AuthN to HAPI FHIR with APISIX and Keycloak](https://rob-ferguson.me/add-authn-to-hapi-fhir-with-apisix-and-keycloak/)
 * Rob Ferguson's blog: [Add support for SMART on FHIR to HAPI FHIR with APISIX and Keycloak](https://rob-ferguson.me/add-authz-to-hapi-fhir-with-apisix-and-keycloak/)
 * Rob Ferguson's blog: [Getting started with the APISIX authz-keycloak plugin](https://rob-ferguson.me/getting-started-with-the-apisix-authz-keycloak-plugin/)
+* Rob Ferguson's blog: [Secure HAPI FHIR data in transit](https://rob-ferguson.me/secure-hapi-fhir-data-in-transit/)
+* Rob Ferguson's blog: [Secure HAPI FHIR data at rest](https://rob-ferguson.me/secure-hapi-fhir-data-at-rest/)
 
 ![divider](./divider.png)
 
