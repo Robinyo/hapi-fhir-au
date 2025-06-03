@@ -121,7 +121,8 @@ The Percona Distribution for PostgreSQL includes the `pg_tde` extension that pro
 ```
   postgres:
     container_name: postgres
-    
+    image: percona/percona-distribution-postgresql:17.5
+         
     ...
 
     environment:

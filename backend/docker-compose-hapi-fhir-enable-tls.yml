@@ -4,9 +4,7 @@ services:
 
   postgres:
     container_name: postgres
-    build:
-      context: ./services/postgres
-      dockerfile: Dockerfile
+    image: percona/percona-distribution-postgresql:17.5
     restart: unless-stopped
     # -c config_file=/etc/postgresql/postgresql.conf
     command: >
