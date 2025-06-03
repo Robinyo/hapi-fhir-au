@@ -8,6 +8,7 @@ services:
       context: ./services/postgres
       dockerfile: Dockerfile
     restart: unless-stopped
+    # -c config_file=/etc/postgresql/postgresql.conf
     command: >
       -c ssl=on 
       -c ssl_cert_file=/var/lib/postgresql/server.crt 
@@ -31,6 +32,8 @@ services:
     volumes:
       - '${PWD}/certs/cert.pem:/var/lib/postgresql/server.crt'
       - '${PWD}/certs/key.pem:/var/lib/postgresql/server.key'
+      # - '${PWD}/services/postgres/conf/postgresql.conf:/etc/postgresql/postgresql.conf'
+      # - '${PWD}/services/postgres/initdb:/docker-entrypoint-initdb.d'
       - postgres_data:/var/lib/postgresql/data
     networks:
       - hapi_fhir_network
