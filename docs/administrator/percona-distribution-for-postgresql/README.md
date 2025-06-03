@@ -237,4 +237,5 @@ End your interactive `psql` session:
 ### PostgreSQL
 
 * Percona Distribution for PostgreSQL: [Docker](https://docs.percona.com/postgresql/17/docker.html)
+* Percona Community Forum: [pg_tde](https://forums.percona.com/c/postgresql/pg-tde-transparent-data-encryption-tde/82)
 * GitHub: [Percona PostgreSQL - Test Case 001](https://github.com/percona/postgres/blob/TDE_REL_17_STABLE/contrib/pg_tde/t/001_basic.pl)
