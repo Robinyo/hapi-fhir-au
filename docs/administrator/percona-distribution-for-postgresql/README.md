@@ -182,8 +182,7 @@ You should see something like:
 (1 row)
 ```
 
-**Note:** This sample key provider configuration is intended for testing and development purposes only.
-
+**Note:** This sample key provider configuration is meant for development and testing purposes only, not production.
 
 Set a principal key:
 
