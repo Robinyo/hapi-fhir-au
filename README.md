@@ -39,6 +39,7 @@
   * [Working with HAPI FHIR](./docs/administrator/hapi-fhir/README.md)
   * [Working with PostgreSQL](./docs/administrator/postgres/README.md)
   * [Working with pgAdmin](./docs/administrator/pgadmin/README.md)
+  * [Working with the Percona Distribution for PostgreSQL](./docs/administrator/percona-distribution-for-postgresql/README.md)
 
 ![divider](./divider.png)
 

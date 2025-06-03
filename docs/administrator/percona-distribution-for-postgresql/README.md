@@ -1,4 +1,4 @@
-<h1 align="center">Percona Distribution for PostgreSQL</h1>
+<h1 align="center">Working with the Percona Distribution for PostgreSQL</h1>
 
 ## ❯ Percona Distribution for PostgreSQL
 
@@ -234,6 +234,12 @@ You should see something like:
 ---------------------
  t
 (1 row)
+```
+
+End your interactive `psql` session:
+
+```
+\q
 ```
 
 ## ❯ References
