@@ -84,7 +84,7 @@ For example:
 sudo chmod 600 *.pem
 ```
 
-We can check that the connections to PostgreSQL are secure by running the following query:
+We can check that connections to PostgreSQL are secure by running the following query:
 
 ```
 select pg_ssl.pid, pg_ssl.ssl, pg_ssl.version,
