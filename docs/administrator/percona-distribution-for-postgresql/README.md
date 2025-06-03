@@ -116,7 +116,7 @@ You should see something like:
 
 #### Enable encryption
 
-The Percona Distribution for PostgreSQL includes the `pg_tde` extension that provide data encryption.
+The Percona Distribution for PostgreSQL includes the `pg_tde` extension that provides data encryption.
 
 ```
   postgres:
