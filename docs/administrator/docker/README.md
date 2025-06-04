@@ -112,6 +112,7 @@ Clean and build:
 
 ```
 docker system prune
+docker container prune && docker volume prune && docker network prune
 
 # APISIX
 docker compose -f docker-compose-apisix.yml build
@@ -132,7 +133,5 @@ docker compose -f docker-compose-nginx.yml ps
 docker container ls
 docker image ls
 docker volume ls
-docker container prune
-docker volume prune
-docker network prune
+docker container prune && docker volume prune && docker network prune
 ```

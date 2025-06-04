@@ -13,7 +13,8 @@
 </p>
 
 <p align="center">
-  TLS is used to encrypt <b>data in transit</b> and AES-256 is used to encrypt <b>data at rest</b>.
+  TLS is used to encrypt <b>data in transit</b> and AES (Advanced Encryption Standard) algorithms for transparent data 
+encryption in PostgreSQL is used to encrypt <b>data at rest</b>.
 </p>
 
 <p align="center">
