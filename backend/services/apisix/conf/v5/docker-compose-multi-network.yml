@@ -19,6 +19,8 @@ services:
       interval: 30s
       retries: 5
       timeout: 5s
+    # ports:
+    #   - 5432:5432
     environment:
       POSTGRES_DB: ${HAPI_FHIR_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -138,6 +140,8 @@ services:
       interval: 30s
       retries: 5
       timeout: 5s
+    # ports:
+    #   - 5432:5432
     environment:
       POSTGRES_DB: ${KEYCLOAK_DB}
       POSTGRES_USER: ${POSTGRES_USER}
