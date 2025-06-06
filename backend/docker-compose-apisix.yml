@@ -4,6 +4,66 @@ services:
 
   # frontend Network
 
+  hapi-fhir:
+    container_name: hapi-fhir
+    build:
+      context: ./services/hapi-fhir
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${HAPI_FHIR_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      # SPRING_DATASOURCE_PASSWORD: /run/secrets/pg_password
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
+      SPRING_JPA_PROPERTIES_SEARCH_ENABLED: false
+    env_file:
+      - ./.env
+    # secrets:
+    #   - pg_password
+    volumes:
+      - '${PWD}/certs/keystore.p12:/keystore/keystore.p12'
+    configs:
+      - source: hapi
+        target: /app/config/application.yaml
+    depends_on:
+      keycloak.au.localhost:
+        condition: service_healthy
+    networks:
+      - frontend
+      - backend
+
+  apisix:
+    container_name: apisix
+    build:
+      context: ./services/apisix
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 80:9080
+      - 443:9443
+    environment:
+      APISIX_STAND_ALONE: true
+      APISIX_SSL_CERT: /usr/local/apisix/conf/cert/cert.pem
+      APISIX_SSL_CERT_KEY: /usr/local/apisix/conf/cert/key.pem
+    env_file:
+      - ./.env
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - '${PWD}/services/apisix/conf/config-standalone.yml:/usr/local/apisix/conf/config.yaml'
+      - '${PWD}/services/apisix/conf/apisix-standalone.yml:/usr/local/apisix/conf/apisix.yaml'
+      - '${PWD}/certs/cert.pem:/usr/local/apisix/conf/cert/cert.pem'
+      - '${PWD}/certs/key.pem:/usr/local/apisix/conf/cert/key.pem'
+    networks:
+      - frontend
+      - backend
+
+  # backend Network
+
   postgres:
     container_name: postgres
     image: percona/percona-distribution-postgresql:17.5
@@ -37,91 +97,7 @@ services:
       # - '${PWD}/services/postgres/conf/postgresql.conf:/etc/postgresql/postgresql.conf'
       # - '${PWD}/services/postgres/initdb:/docker-entrypoint-initdb.d'
     networks:
-      - frontend
-
-  pgadmin:
-    container_name: pgadmin
-    build:
-      context: ./services/pgadmin
-      dockerfile: Dockerfile
-    ports:
-      - 5080:80
-      - 5443:443
-    volumes:
-      - '${PWD}/certs/cert.pem:/certs/server.cert'
-      - '${PWD}/certs/key.pem:/certs/server.key'
-      - '${PWD}/pgadmin_data:/var/lib/pgadmin'
-    environment:
-      PGADMIN_ENABLE_TLS: true
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - frontend
       - backend
-
-  hapi-fhir:
-    container_name: hapi-fhir
-    build:
-      context: ./services/hapi-fhir
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - 8080:8080
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${HAPI_FHIR_DB}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-      # SPRING_DATASOURCE_PASSWORD: /run/secrets/pg_password
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
-      SPRING_JPA_PROPERTIES_SEARCH_ENABLED: false
-    env_file:
-      - ./.env
-    # secrets:
-    #   - pg_password
-    volumes:
-      - '${PWD}/certs/keystore.p12:/keystore/keystore.p12'
-    configs:
-      - source: hapi
-        target: /app/config/application.yaml
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - frontend
-
-  apisix:
-    container_name: apisix
-    build:
-      context: ./services/apisix
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - 80:9080
-      - 443:9443
-    environment:
-      APISIX_STAND_ALONE: true
-      APISIX_SSL_CERT: /usr/local/apisix/conf/cert/cert.pem
-      APISIX_SSL_CERT_KEY: /usr/local/apisix/conf/cert/key.pem
-    env_file:
-      - ./.env
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
-    volumes:
-      - '${PWD}/services/apisix/conf/config-standalone.yml:/usr/local/apisix/conf/config.yaml'
-      - '${PWD}/services/apisix/conf/apisix-standalone.yml:/usr/local/apisix/conf/apisix.yaml'
-      - '${PWD}/certs/cert.pem:/usr/local/apisix/conf/cert/cert.pem'
-      - '${PWD}/certs/key.pem:/usr/local/apisix/conf/cert/key.pem'
-    depends_on:
-      keycloak.au.localhost:
-        condition: service_healthy
-    networks:
-      - frontend
-
-  # backend Network
 
   keycloak-postgres:
     container_name: keycloak-postgres
@@ -155,6 +131,28 @@ services:
       - postgres_data:/var/lib/postgresql/data
       # - '${PWD}/services/postgres/conf/postgresql.conf:/etc/postgresql/postgresql.conf'
       # - '${PWD}/services/postgres/initdb:/docker-entrypoint-initdb.d'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - backend
+
+  pgadmin:
+    container_name: pgadmin
+    build:
+      context: ./services/pgadmin
+      dockerfile: Dockerfile
+    ports:
+      # - 5080:80
+      - 5443:443
+    volumes:
+      - '${PWD}/certs/cert.pem:/certs/server.cert'
+      - '${PWD}/certs/key.pem:/certs/server.key'
+      - '${PWD}/pgadmin_data:/var/lib/pgadmin'
+    environment:
+      PGADMIN_ENABLE_TLS: true
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     networks:
       - backend
 
@@ -217,16 +215,15 @@ services:
         condition: service_healthy
     networks:
       - backend
-      - frontend
 
 # secrets:
 #   pg_password:
 #     file: ./secrets/pg_password.txt
 
 networks:
-  backend:
-    driver: bridge
   frontend:
+    driver: bridge
+  backend:
     driver: bridge
 
 volumes:
