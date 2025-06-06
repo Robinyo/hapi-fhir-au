@@ -143,7 +143,6 @@ services:
       context: ./services/pgadmin
       dockerfile: Dockerfile
     ports:
-      # - 5080:80
       - 5443:443
     volumes:
       - '${PWD}/certs/cert.pem:/certs/server.cert'
