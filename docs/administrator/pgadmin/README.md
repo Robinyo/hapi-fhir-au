@@ -24,21 +24,16 @@ In the 'Quick Links' click on 'Add New Server':
   <img src="./pgadmin-register-server-general-tab.png" alt="Register Server - General Tab"/>
 </p>
 
-Enter the Name (PostgreSQL) and then click on the 'Connection' tab:
+Enter the Name (HAPI FHIR PostgreSQL) and then click on the 'Connection' tab:
 
 <p align="center">
   <img src="./pgadmin-register-server-connection-tab.png" alt="Register Server - Connection Tab"/>
 </p>
 
-Enter the Host name / address (postgres) and the PostgreSQL Username (POSTGRES_USER=admin) and Password (POSTGRES_PASSWORD=secret), then click the 'Save' button:
+Enter the Host name / address (postgres) and the PostgreSQL Username (POSTGRES_USER=admin) and Password (POSTGRES_PASSWORD=secret), 
+the Maintenance database (hapi-fhir) then click the 'Save' button:
 
 **Note:** The 'Host name / address' field must match the value (e.g., postgres) specified in the project's docker-compose.yml.
-
-You can use the Object Explorer to browse the database:
-
-<p align="center">
-  <img src="./pgadmin-object-explorer.png" alt="Object Explorer"/>
-</p>
 
 ## ❯ References
 

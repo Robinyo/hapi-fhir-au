@@ -152,6 +152,9 @@ services:
       PGADMIN_ENABLE_TLS: true
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      keycloak.au.localhost:
+        condition: service_healthy
     networks:
       - backend
 
