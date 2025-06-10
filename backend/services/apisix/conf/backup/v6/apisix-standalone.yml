@@ -19,6 +19,13 @@ upstreams:
     nodes:
       "hapi-fhir:8080": 1
 
+  - name: https-hapi-fhir-service
+    id: 2
+    type: roundrobin
+    scheme: https
+    nodes:
+      "hapi-fhir:6443": 1
+
 routes:
   - name: hapi-fhir-web-testpage-overlay
     uri: /*
@@ -61,6 +68,7 @@ routes:
     uri: /fhir/Patient*
     methods: [ "POST", "PUT", "PATCH", "DELETE" ]
     upstream_id: 1
+
 
 ssls:
   -

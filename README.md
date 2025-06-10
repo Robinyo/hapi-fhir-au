@@ -145,6 +145,15 @@
 * OAuth2 Proxy docs: [Integration](https://oauth2-proxy.github.io/oauth2-proxy/configuration/integration)
 * OAuth2 Proxy docs: [TLS Configuration](https://oauth2-proxy.github.io/oauth2-proxy/configuration/tls/)
 
+### Open Policy Agent
+
+* Open Policy Agent docs: [Introduction](https://www.openpolicyagent.org/docs)
+* Styra docs: [Rego Style Guide](https://docs.styra.com/opa/rego-style-guide)
+* GitHub: [Awesome OPA - A curated list of awesome OPA-related tools, frameworks and articles](https://github.com/StyraInc/awesome-opa)
+* Open Policy Agent: [Playground](https://play.openpolicyagent.org/)
+* Styra Academy courses: [OPA Policy Authoring](https://academy.styra.com/courses/opa-rego)
+* Open Policy Agent: [Ecosystem](https://www.openpolicyagent.org/ecosystem/by-feature/learning-rego)
+
 ### HAPI FHIR
 
 * HAPI FHIR: [Website](https://hapifhir.io/)
