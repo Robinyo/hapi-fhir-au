@@ -44,7 +44,7 @@ routes:
     plugin_config_id: 1
     upstream_id: 1
 
-  - name: hapi-fhir-api
+  - name: hapi-fhir-api-patient-read
     uri: /fhir/Patient*
     methods: [ "GET" ]
     upstream_id: 1
@@ -57,8 +57,18 @@ routes:
         discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
         permissions: [ "Patient#Patient.read" ]
 
-  - name: hapi-fhir-api
+  - name: hapi-fhir-api-patient-write
     uri: /fhir/Patient*
+    methods: [ "POST", "PUT", "PATCH", "DELETE" ]
+    upstream_id: 1
+
+  - name: hapi-fhir-api-organization-read
+    uri: /fhir/Organization*
+    methods: [ "GET" ]
+    upstream_id: 1
+
+  - name: hapi-fhir-api-organization-write
+    uri: /fhir/Organization*
     methods: [ "POST", "PUT", "PATCH", "DELETE" ]
     upstream_id: 1
 

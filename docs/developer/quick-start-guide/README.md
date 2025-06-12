@@ -354,6 +354,66 @@ You should see something like:
 }             
 ```
 
+or for example:
+
+```
+curl -X GET https://hapi-fhir.au.localhost/fhir/Patient?_id=baratz-toni \
+  -H 'Content-Type: application/fhir+json' \
+  -H "Authorization: Bearer $ACCESS_TOKEN"
+```
+
+You should see something like:
+
+```
+{
+  "resourceType": "Bundle",
+  "id": "d049517a-9ff0-47e3-a3ff-c19f3d7615a6",
+  "meta": {
+    "lastUpdated": "2025-06-12T01:19:04.156+00:00"
+  },
+  "type": "searchset",
+  "total": 1,
+  "link": [ {
+    "relation": "self",
+    "url": "https://hapi-fhir.au.localhost/fhir/Organization?_id=adv-hearing-care"
+  } ],
+  "entry": [ {
+    "fullUrl": "https://hapi-fhir.au.localhost/fhir/Organization/adv-hearing-care",
+    "resource": {
+      "resourceType": "Organization",
+      "id": "adv-hearing-care",
+      "meta": {
+        "versionId": "1",
+        "lastUpdated": "2025-06-12T01:18:33.852+00:00",
+        "source": "#CVStmTGW0vAqtHXS",
+        "profile": [ "http://hl7.org.au/fhir/core/StructureDefinition/au-core-organization" ]
+      },
+      "identifier": [ {
+        "type": {
+          "coding": [ {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "XX"
+          } ],
+          "text": "ABN"
+        },
+        "system": "http://hl7.org.au/id/abn",
+        "value": "12345678901"
+      } ],
+      "active": true,
+      "name": "Audiology Advanced Hearing Care",
+      "telecom": [ {
+        "system": "email",
+        "value": "info@ahc.example.com",
+        "use": "work"
+      } ]
+    },
+    "search": {
+      "mode": "match"
+    }
+  } ]
+}
+```
+
 ### Keycloak
 
 #### Admin Console
