@@ -1,0 +1,27 @@
+{
+    "type": "http",
+    "request": {
+        "scheme": "http",
+        "path": "\/Organization",
+        "headers": {
+            "user-agent": "curl\/7.68.0",
+            "accept": "*\/*",
+            "host": "127.0.0.1:9080",
+            "authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJMOFRkd19mLTRlUDJOVmZzMUVDbDJka0ZwNmFGbi1QR2xZZWlxb0FvSkowIn0.eyJleHAiOjE3NDk2ODQ3MTUsImlhdCI6MTc0OTY4NDQxNSwianRpIjoidHJydGNjOjM2YTAzOTdjLTdmYzQtNDA3Mi04ZjZkLTRhYWRmZDRmNzE5YSIsImlzcyI6Imh0dHBzOi8va2V5Y2xvYWsuYXUubG9jYWxob3N0Ojg0NDMvcmVhbG1zL2hhcGktZmhpci1kZXYiLCJhdWQiOlsib2F1dGgyLXByb3h5IiwiYWNjb3VudCJdLCJzdWIiOiJkYTRmMDkxMi0xY2Q5LTQzMmQtOWM5ZC1hNTVkYjExMDkzZGUiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJvYXV0aDItcHJveHkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtaGFwaS1maGlyLWRldiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJvYXV0aDItcHJveHkiOnsicm9sZXMiOlsidW1hX3Byb3RlY3Rpb24iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBzeXN0ZW0vT3JnYW5pemF0aW9uLnJlYWQgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImNsaWVudEhvc3QiOiIxNzIuMTkuMC4xIiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LW9hdXRoMi1wcm94eSIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTkuMC4xIiwiY2xpZW50X2lkIjoib2F1dGgyLXByb3h5In0.MKl15J8TTYKsEc7dtpIBDvsTTal5yrSJ2X7hiWb6UdS11JcPx-UaIczRR40DIiWbTI_PhrocCfe3W3XPu7jDJSeIYsS4vjbvFhQiQZ7YjSY2J-T0wZzfGgBxKNxDW27ix-Zvw-7KmZnzZ25LGWd34CLhLv57tDPBVEhcEqPbTvVQjdawWybzPPEkAVW5y4SIGT0Ti1Mjw_SJ4kXXALxQIj8zEIqpjRx2NUOgr1BU23n7DrqzI2tCD5RG4NcrrpUTFVQZDfBgQjiOuqkj3c_M6CpHaV7GXqCMQkKRmhFt4oc62n6cEzaH3kiJyOn0q758ZgOC9zymfpAuxZT9ol0-mg"
+        },
+        "query": {},
+        "port": 9080,
+        "method": "GET",
+        "host": "127.0.0.1"
+    },
+    "var": {
+        "timestamp": 1701234567,
+        "server_addr": "127.0.0.1",
+        "server_port": "9080",
+        "remote_port": "port",
+        "remote_addr": "ip address"
+    },
+    "route": {},
+    "service": {},
+    "consumer": {}
+}

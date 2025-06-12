@@ -34,6 +34,32 @@ services:
       - frontend
       - backend
 
+  opa:
+    container_name: opa
+    build:
+      context: ./services/opa
+      dockerfile: Dockerfile
+    command: [ "run", "--server", "--addr", ":8181" ]
+    restart: unless-stopped
+    ports:
+      - 8181
+    networks:
+      - frontend
+
+  opa-init:
+    image: curlimages/curl:8.13.0
+    user: root
+    entrypoint: /bin/sh -c "apk add --no-cache jq && /initopa.sh"
+    volumes:
+      - ${PWD}/services/opa/conf/rbac.json:/rbac.json
+      - ${PWD}/services/opa/conf/organization.rego:/organization.rego
+      - ${PWD}/services/opa/conf/initopa.sh:/initopa.sh
+    depends_on:
+      opa:
+        condition: service_started
+    networks:
+      - frontend
+
   apisix:
     container_name: apisix
     build:

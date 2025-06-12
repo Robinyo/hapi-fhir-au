@@ -1,0 +1,14 @@
+{
+
+  "user_roles" : {
+    "homer": ["omo"],
+    "marge": ["omo"],
+    "rob":   ["admin"]
+  },
+
+  "role_permissions" : {
+    "omo":   [{"permission": "Organization.read"}],
+    "admin": [{"permission": "Organization.read"}, {"permission": "Organization.write"}]
+  }
+
+}

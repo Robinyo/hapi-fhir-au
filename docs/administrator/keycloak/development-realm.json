@@ -408,8 +408,8 @@
     "clientConsents" : [ {
       "clientId" : "oauth2-proxy",
       "grantedClientScopes" : [ "profile", "email", "roles", "patient/AllergyIntolerance.read" ],
-      "createdDate" : 1749673975645,
-      "lastUpdatedDate" : 1749673975654
+      "createdDate" : 1748154888742,
+      "lastUpdatedDate" : 1748154888750
     } ],
     "notBefore" : 1737331440,
     "groups" : [ ]
@@ -674,7 +674,7 @@
       }
     } ],
     "defaultClientScopes" : [ "service_account", "web-origins", "acr", "profile", "roles", "basic", "email" ],
-    "optionalClientScopes" : [ "address", "system/Patient.read", "system/Organization.read", "phone", "organization", "offline_access", "patient/AllergyIntolerance.read", "microprofile-jwt" ],
+    "optionalClientScopes" : [ "address", "system/Patient.read", "phone", "organization", "offline_access", "patient/AllergyIntolerance.read", "microprofile-jwt" ],
     "authorizationSettings" : {
       "allowRemoteResourceManagement" : true,
       "policyEnforcementMode" : "ENFORCING",
@@ -1167,17 +1167,6 @@
       }
     } ]
   }, {
-    "id" : "520df674-f758-4fe4-88c1-6d3d2627694b",
-    "name" : "system/Organization.read",
-    "description" : "Permission to read all organization records accessible to the given client using its own credentials.",
-    "protocol" : "openid-connect",
-    "attributes" : {
-      "include.in.token.scope" : "true",
-      "display.on.consent.screen" : "false",
-      "gui.order" : "",
-      "consent.screen.text" : ""
-    }
-  }, {
     "id" : "786a2b0a-9b08-4915-88b1-7f3082ea9e41",
     "name" : "offline_access",
     "description" : "OpenID Connect built-in scope: offline_access",
@@ -1346,9 +1335,8 @@
       "consentRequired" : false,
       "config" : {
         "user.session.note" : "clientAddress",
-        "introspection.token.claim" : "true",
-        "userinfo.token.claim" : "true",
         "id.token.claim" : "true",
+        "introspection.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "clientAddress",
         "jsonType.label" : "String"
@@ -1361,9 +1349,8 @@
       "consentRequired" : false,
       "config" : {
         "user.session.note" : "clientHost",
-        "introspection.token.claim" : "true",
-        "userinfo.token.claim" : "true",
         "id.token.claim" : "true",
+        "introspection.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "clientHost",
         "jsonType.label" : "String"
@@ -1376,9 +1363,8 @@
       "consentRequired" : false,
       "config" : {
         "user.session.note" : "client_id",
-        "introspection.token.claim" : "true",
-        "userinfo.token.claim" : "true",
         "id.token.claim" : "true",
+        "introspection.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "client_id",
         "jsonType.label" : "String"
@@ -1520,7 +1506,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-usermodel-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "oidc-full-name-mapper", "saml-role-list-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper", "saml-role-list-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper" ]
       }
     }, {
       "id" : "c00eca02-8ce1-424f-9bd8-12dca08eec5a",
@@ -1554,7 +1540,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper", "saml-user-attribute-mapper", "saml-role-list-mapper", "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "oidc-usermodel-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "saml-role-list-mapper", "oidc-address-mapper", "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper" ]
       }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {
@@ -2242,7 +2228,7 @@
     "cibaInterval" : "5",
     "realmReusableOtpCode" : "false"
   },
-  "keycloakVersion" : "26.2.5",
+  "keycloakVersion" : "26.2.4",
   "userManagedAccessAllowed" : false,
   "organizationsEnabled" : false,
   "verifiableCredentialsEnabled" : false,

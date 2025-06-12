@@ -164,6 +164,19 @@ ACCESS_TOKEN=$(curl -s -X POST https://keycloak.au.localhost:8443/realms/hapi-fh
 # echo "$ACCESS_TOKEN"                 
 ```
 
+or for example (`scope=system/Organization.read`):
+
+```
+ACCESS_TOKEN=$(curl -s -X POST https://keycloak.au.localhost:8443/realms/hapi-fhir-dev/protocol/openid-connect/token \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d grant_type=client_credentials \
+  -d client_id=oauth2-proxy \
+  -d client_secret=aHkRec1BYkfaKgMg164JmvKu8u9iWNHM \
+  -d scope=system/Organization.read | (jq -r '.access_token'))
+                 
+# echo "$ACCESS_TOKEN"                 
+```
+
 **Note:** You can use [jwt.io](https://jwt.io/) to decode the access token.
 
 #### Introspect a token
