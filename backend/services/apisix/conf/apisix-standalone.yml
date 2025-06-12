@@ -66,6 +66,10 @@ routes:
     uri: /fhir/Organization*
     methods: [ "GET" ]
     upstream_id: 1
+    plugins:
+      opa:
+        host: hapi-fhir.au.localhost
+        policy: organisation.system
 
   - name: hapi-fhir-api-organization-write
     uri: /fhir/Organization*

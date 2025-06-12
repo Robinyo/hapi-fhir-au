@@ -357,7 +357,7 @@ You should see something like:
 or for example:
 
 ```
-curl -X GET https://hapi-fhir.au.localhost/fhir/Patient?_id=baratz-toni \
+curl -X GET https://hapi-fhir.au.localhost/fhir/Organization?_id=adv-hearing-care \
   -H 'Content-Type: application/fhir+json' \
   -H "Authorization: Bearer $ACCESS_TOKEN"
 ```
