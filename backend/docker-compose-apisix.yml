@@ -39,12 +39,14 @@ services:
     build:
       context: ./services/opa
       dockerfile: Dockerfile
-    command: [ "run", "--server", "--addr", ":8181" ]
+    command: [ "run", "--server", "--addr", ":8181", "--log-level", "debug" ]
     restart: unless-stopped
     ports:
-      - 8181
+      # - 8181
+      - 8181:8181
     networks:
       - frontend
+      - backend
 
   opa-init:
     image: curlimages/curl:8.13.0

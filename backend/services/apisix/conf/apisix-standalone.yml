@@ -68,8 +68,8 @@ routes:
     upstream_id: 1
     plugins:
       opa:
-        host: hapi-fhir.au.localhost
-        policy: organisation.system
+        host: "opa:8181"
+        policy: example
 
   - name: hapi-fhir-api-organization-write
     uri: /fhir/Organization*

@@ -1,4 +1,4 @@
-package organisation.system
+package example
 
 default allow := false
 
