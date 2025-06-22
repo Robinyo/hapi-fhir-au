@@ -408,8 +408,8 @@
     "clientConsents" : [ {
       "clientId" : "oauth2-proxy",
       "grantedClientScopes" : [ "profile", "email", "roles", "patient/AllergyIntolerance.read" ],
-      "createdDate" : 1750630432664,
-      "lastUpdatedDate" : 1750630432673
+      "createdDate" : 1749673975645,
+      "lastUpdatedDate" : 1749673975654
     } ],
     "notBefore" : 1737331440,
     "groups" : [ ]
@@ -696,18 +696,6 @@
           "name" : "Patient.read"
         } ],
         "icon_uri" : ""
-      }, {
-        "name" : "Organization",
-        "ownerManagedAccess" : false,
-        "displayName" : "Organization",
-        "attributes" : { },
-        "uris" : [ "fhir/Organization" ],
-        "scopes" : [ {
-          "name" : "Organization.read"
-        }, {
-          "name" : "Organization.write"
-        } ],
-        "icon_uri" : ""
       } ],
       "policies" : [ {
         "name" : "patient-read-client-scope-policy",
@@ -717,15 +705,6 @@
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
           "clientScopes" : "[{\"id\":\"system/Patient.read\",\"required\":false}]"
-        }
-      }, {
-        "name" : "organization-read-client-scope-policy",
-        "description" : "",
-        "type" : "client-scope",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "UNANIMOUS",
-        "config" : {
-          "clientScopes" : "[{\"id\":\"system/Organization.read\",\"required\":false}]"
         }
       }, {
         "name" : "patient-read-scope-permission",
@@ -738,17 +717,6 @@
           "scopes" : "[\"Patient.read\"]",
           "applyPolicies" : "[\"patient-read-client-scope-policy\"]"
         }
-      }, {
-        "name" : "organization-read-scope-permission",
-        "description" : "",
-        "type" : "scope",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "UNANIMOUS",
-        "config" : {
-          "resources" : "[\"Organization\"]",
-          "scopes" : "[\"Organization.read\"]",
-          "applyPolicies" : "[\"organization-read-client-scope-policy\"]"
-        }
       } ],
       "scopes" : [ {
         "name" : "Patient.read",
@@ -758,14 +726,6 @@
         "name" : "Patient.write",
         "iconUri" : "",
         "displayName" : "Patient.write"
-      }, {
-        "name" : "Organization.read",
-        "iconUri" : "",
-        "displayName" : "Organization.read"
-      }, {
-        "name" : "Organization.write",
-        "iconUri" : "",
-        "displayName" : "Organization.write"
       } ],
       "decisionStrategy" : "UNANIMOUS"
     }
@@ -1560,7 +1520,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-usermodel-attribute-mapper", "saml-user-property-mapper", "oidc-address-mapper", "oidc-usermodel-property-mapper", "saml-role-list-mapper", "saml-user-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-usermodel-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "oidc-full-name-mapper", "saml-role-list-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper" ]
       }
     }, {
       "id" : "c00eca02-8ce1-424f-9bd8-12dca08eec5a",
@@ -1594,7 +1554,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-role-list-mapper", "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "saml-user-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-attribute-mapper", "oidc-address-mapper", "saml-user-property-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper", "saml-user-attribute-mapper", "saml-role-list-mapper", "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper" ]
       }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {
