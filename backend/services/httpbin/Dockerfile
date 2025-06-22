@@ -1,1 +1,0 @@
-FROM kennethreitz/httpbin:latest
