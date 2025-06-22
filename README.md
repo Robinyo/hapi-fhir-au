@@ -178,7 +178,7 @@
 * okta forum: [SMART on FHIR wildcard scopes](https://devforum.okta.com/t/creating-wildcard-custom-scopes-for-oauth2/27418)
 * GitHub: [Okta SMART on FHIR Setup Guide - scopes](https://github.com/oktadev/okta-smartfhir-docs/blob/original-v1-documentation/SETUP.md#scopes)
 
-### Miscellaneous 
+### Australian Government 
 
 * ADHA: [Strategies and plans](https://www.digitalhealth.gov.au/about-us/strategies-and-plans)
 * ADHA: [Digital Health Standards Catalogue](https://developer.digitalhealth.gov.au/standards/search?keywords=&category=All&organisation=All)
