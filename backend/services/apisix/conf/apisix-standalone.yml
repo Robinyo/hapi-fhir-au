@@ -65,11 +65,14 @@ routes:
   - name: hapi-fhir-api-organization-read
     uri: /fhir/Organization*
     methods: [ "GET" ]
-    upstream_id: 1
     plugins:
-      opa:
-        host: "opa:8181"
-        policy: example
+      authz-keycloak:
+        lazy_load_paths: false
+        ssl_verify: true
+        client_id: ${{CLIENT_ID}}
+        client_secret: ${{CLIENT_SECRET}}
+        discovery: ${{PROTOCOL}}://${{KEYCLOAK_HOSTNAME}}:${{KEYCLOAK_PORT}}/realms/${{KEYCLOAK_REALM}}/.well-known/openid-configuration
+        permissions: [ "system#Organization.read" ]
 
   - name: hapi-fhir-api-organization-write
     uri: /fhir/Organization*
