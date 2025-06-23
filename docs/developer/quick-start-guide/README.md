@@ -430,7 +430,7 @@ You should see something like:
   <img src="./keycloak-welcome-page.png" alt="Keycloak Admin Console Welcome page"/>
 </p>
 
-Follow these [steps](../../administrator/keycloak/keycloak.md) to create a permanent admin account.
+Follow these [steps](../../administrator/keycloak/README.md) to create a permanent admin account.
 
 You can preview tokens in the Keycloak Admin Console, for example:
 
