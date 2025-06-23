@@ -1,4 +1,4 @@
-<h1 align="center">Working with Docker</h1>
+<h1 align="center">Working with Docker and Docker Compose</h1>
 
 We use Docker Desktop for Mac.
 

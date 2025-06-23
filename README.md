@@ -34,7 +34,7 @@
   * [mkcert](./docs/developer/mkcert/README.md)
 * Administrator Documentation
   * [Working with APISIX](./docs/administrator/apisix/README.md)
-  * [Working with Docker](./docs/administrator/docker/README.md)
+  * [Working with Docker and Docker Compose](./docs/administrator/docker/README.md)
   * [Working with Keycloak](./docs/administrator/keycloak/README.md)
   * [Working with HAPI FHIR](./docs/administrator/hapi-fhir/README.md)
   * [Working with PostgreSQL](./docs/administrator/postgres/README.md)
