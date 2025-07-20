@@ -2,6 +2,26 @@
 
 ## ❯ Keycloak
 
+### Keycloak Authorization Services
+
+#### Fine-grained Authorization
+
+You must allow the 'Authorization' capability config setting in order to enable support for fine-grained authorisation.
+
+<p align="center">
+  <img src="./keycloak-capability-config-authorization.png" alt="Allow the 'Authorization' capability config setting"/>
+</p>
+
+When you enable the 'Authorization' capability config setting, Keycloak will create a Default Policy:
+
+<p align="center">
+  <img src="./keycloak-authorization-server-default-policy.png" alt="Authorization Server Default policy"/>
+</p>
+
+You need to **delete** the Default Policy if you want to 'export' then 'import' your realm settings.
+
+See: [Keycloak Issues - ERROR: Script upload is disabled](https://github.com/keycloak/keycloak/discussions/28019)
+
 ### Permanent Admin Account
 
 When you first start Keycloak you login using the Keycloak bootstrap username and password.
@@ -47,7 +67,6 @@ For example:
         '-Dkeycloak.migration.realmName=hapi-fhir-dev',
         '-Dkeycloak.migration.strategy=OVERWRITE_EXISTING',
         '-Dkeycloak.migration.file=/import/development-realm.json',
-        '--log-level=INFO,io.vertx.ext.web.impl.RouterImpl:TRACE',
       ]
       
     ...
@@ -75,7 +94,6 @@ For example:
         '-Dkeycloak.migration.realmName=hapi-fhir-dev',
         '-Dkeycloak.migration.usersExportStrategy=REALM_FILE',
         '-Dkeycloak.migration.file=/export/development-realm.json',
-        '--log-level=INFO,io.vertx.ext.web.impl.RouterImpl:TRACE',
       ]
       
     ...
