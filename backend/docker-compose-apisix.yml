@@ -14,14 +14,11 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${HAPI_FHIR_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-      # SPRING_DATASOURCE_PASSWORD: /run/secrets/pg_password
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
-      SPRING_JPA_PROPERTIES_SEARCH_ENABLED: false
+      SPRING_JPA_PROPERTIES_HIBERNATE_SEARCH_ENABLED: false
     env_file:
       - ./.env
-    # secrets:
-    #   - pg_password
     volumes:
       - '${PWD}/certs/keystore.p12:/keystore/keystore.p12'
     configs:
@@ -41,8 +38,8 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - 80:9080
-      - 443:9443
+      - "80:9080"
+      - "443:9443"
     environment:
       APISIX_STAND_ALONE: true
       APISIX_SSL_CERT: /usr/local/apisix/conf/cert/cert.pem
@@ -81,7 +78,6 @@ services:
       POSTGRES_DB: ${HAPI_FHIR_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      # POSTGRES_PASSWORD: /run/secrets/pg_password
       PGSSLMODE: require
       ENABLE_PG_TDE: 1
     env_file:
@@ -116,7 +112,6 @@ services:
       POSTGRES_DB: ${KEYCLOAK_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      # POSTGRES_PASSWORD: /run/secrets/pg_password
       PGSSLMODE: require
       ENABLE_PG_TDE: 1
     env_file:
@@ -141,7 +136,7 @@ services:
       context: ./services/pgadmin
       dockerfile: Dockerfile
     ports:
-      - 5443:443
+      - "5443:443"
     volumes:
       - '${PWD}/certs/cert.pem:/certs/server.cert'
       - '${PWD}/certs/key.pem:/certs/server.key'
@@ -179,8 +174,8 @@ services:
       retries: 5
       timeout: 5s
     ports:
-      - 8443:8443
-      - 9000:9000
+      - "8443:8443"
+      - "9000:9000"
     environment:
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
 
@@ -196,13 +191,10 @@ services:
       KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/${KEYCLOAK_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      # KC_DB_PASSWORD: /run/secrets/pg_password
 
       KC_HEALTH_ENABLED: true
     env_file:
       - ./.env
-    # secrets:
-    #   - pg_password
     volumes:
       - '${PWD}/services/keycloak/scripts/health-check.sh:/opt/keycloak/health-check.sh'
       - '${PWD}/certs/keycloak-cert.pem:/etc/keycloak/certs/cert.pem'
@@ -215,10 +207,6 @@ services:
         condition: service_healthy
     networks:
       - backend
-
-# secrets:
-#   pg_password:
-#     file: ./secrets/pg_password.txt
 
 networks:
   frontend:

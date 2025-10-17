@@ -1,7 +1,19 @@
 server:
   max-http-request-header-size: 64KB
+spring:
+  ai:
+    mcp:
+      server:
+        enabled: true
+  main:
+    banner-mode: off
 hapi:
   fhir:
+    fhir_version: R4
     server_address: https://hapi-fhir.au.localhost/fhir
-    default_encoding: json
-    # dao_config.server_id_mode: UUID
+    tester:
+      home:
+        name: Local Tester
+        server_address: 'http://localhost:8080/fhir'
+        refuse_to_fetch_third_party_urls: false
+        fhir_version: R4

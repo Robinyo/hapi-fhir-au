@@ -23,6 +23,20 @@ local certificate authority and to generate the certificates required to enable 
 
 ### Docker Compose
 
+To build a Docker Image:
+
+```
+cd ~/workspace/hapi-fhir-au/backend
+
+# APISIX
+docker compose -f docker-compose-apisix.yml build
+
+# OR
+
+# Nginx
+docker compose -f docker-compose-nginx.yml build
+```
+
 With a single command, you can create and start all the services:
 
 ```
@@ -51,7 +65,7 @@ You should see something like:
   <img src="./keycloak-sign-in.png" alt="Sign in with your Keycloak Account"/>
 </p>
 
-Enter your username (hey@rob-ferguson.me) and password (secret), then click the 'Sign In' button to sign in using the OpenID Connect (OIDC) **Authorization Code flow**.
+Enter your username (hey@rob-ferguson.me) and password (Password12), then click the 'Sign In' button to sign in using the OpenID Connect (OIDC) **Authorization Code flow**.
 
 **Note:** I followed the steps in Keycloak's [Getting Started with Docker](https://www.keycloak.org/getting-started/getting-started-docker) guide to create: a realm; a user; and a client.
 Keycloak will import the `hapi-fhir-dev` realm (i.e., development-realm.json) when it starts up.

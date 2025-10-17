@@ -74,6 +74,18 @@ Add the hostnames, `hapi-fhir.au.localhost` and `keycloak.au.localhost`:
 **Note**: Remember that `mkcert` is meant for development purposes, not production, so it should not be used on end 
 users' machines, and that you should not export or share `rootCA-key.pem`.
 
+### View and manage digital certificates
+
+You can also use command-line tools to view and manage digital certificates.
+
+For example:
+
+```
+curl -v https://provider-directory.au.localhost
+openssl x509 -in certs/cert.pem -text -noout
+nmap --script ssl-cert -p 443 provider-directory.au.localhost
+```
+
 ## ❯ References
 
 * GitHub: [mkcert](https://github.com/FiloSottile/mkcert)
